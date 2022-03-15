@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  patient: one
+  account_number: MyString
+  admission_date: 2022-03-11
+  discharge_date: 2022-03-11
+
+two:
+  patient: two
+  account_number: MyString
+  admission_date: 2022-03-11
+  discharge_date: 2022-03-11

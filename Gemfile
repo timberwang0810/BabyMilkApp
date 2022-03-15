@@ -33,12 +33,41 @@ gem 'jbuilder', '~> 2.5'
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 
+# Other gems
+gem 'validates_timeliness', '4.0.2'
+gem 'time_date_helpers', '0.0.4'
+gem 'materialize-sass', '~> 1.0.0'
+gem 'simple_form'
+gem 'materialize-form', git: 'https://github.com/cmu-is-projects/materialize-form.git'
+gem 'will_paginate'
+gem 'jquery-rails', '4.3.1'
+gem 'jquery-ui-rails', '6.0.1'
+gem 'cancancan', '3.2.1'
+
 # Reduces boot times through caching; required in config/boot.rb
 gem 'bootsnap', '>= 1.1.0', require: false
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
+  # Adds support for Capybara system testing and webdrivers
+  gem 'webdrivers'
+  gem 'better_errors'
+  gem 'binding_of_caller'
+  gem 'meta_request'
+  gem 'hirb'
+  gem 'faker'
+  gem 'populator'
+  gem 'factory_bot_rails'
+  gem 'simplecov'
+  gem 'shoulda', '3.5.0'
+  gem 'shoulda-matchers', '2.8.0'
+  gem 'minitest-rails', '3.0.0'
+  gem 'minitest-reporters', '1.1.19'
+  gem 'rails-controller-testing'
+  gem 'cucumber-rails', require: false
+  gem 'database_cleaner'
+  gem 'launchy'
 end
 
 group :development do

@@ -1,0 +1,21 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  patient: one
+  checkin_nurse_id: one
+  checkout_nurse_id: one
+  collected_date: 2022-03-11 14:13:45
+  storage_location: MyString
+  administration_date: 2022-03-11 14:13:45
+  expiration_date: 2022-03-11 14:13:45
+  active: 
+
+two:
+  patient: two
+  checkin_nurse_id: two
+  checkout_nurse_id: two
+  collected_date: 2022-03-11 14:13:45
+  storage_location: MyString
+  administration_date: 2022-03-11 14:13:45
+  expiration_date: 2022-03-11 14:13:45
+  active: 
