@@ -1,0 +1,39 @@
+#topbar {
+    background-color: #d4ebf2;
+    padding-top: 5px;
+    margin-bottom: 0px;
+    color: black;
+  }
+  
+  #nav {
+    height: 65px;
+  }
+  
+  #nav ul a {
+    color: white;
+    font-size: 1.2rem;
+  }
+
+  #footer {
+    background-color: #d4ebf2;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    margin-bottom: 0px;
+    color: white;
+    line-height: 2rem;
+    display: flex;
+    min-height: 35vh;
+    flex-direction: column;
+    flex: 1 0 auto;
+  
+  }
+ 
+
+  #form-inputs {
+    padding-left: 20px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+  }
+  
+
+      
