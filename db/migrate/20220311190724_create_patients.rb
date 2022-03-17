@@ -6,7 +6,7 @@ class CreatePatients < ActiveRecord::Migration[5.2]
       t.date :dob
       t.string :last_name
       t.integer :age
-      t.boolean :active
+      t.boolean :active, default: true
 
       t.timestamps
     end

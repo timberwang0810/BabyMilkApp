@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_03_11_191345) do
+ActiveRecord::Schema.define(version: 2022_03_17_174520) do
 
   create_table "bottles", force: :cascade do |t|
     t.integer "patient_id"
@@ -20,7 +20,7 @@ ActiveRecord::Schema.define(version: 2022_03_11_191345) do
     t.string "storage_location"
     t.datetime "administration_date"
     t.datetime "expiration_date"
-    t.boolean "active"
+    t.boolean "active", default: true
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["checkin_nurse_id_id"], name: "index_bottles_on_checkin_nurse_id_id"
@@ -34,7 +34,7 @@ ActiveRecord::Schema.define(version: 2022_03_11_191345) do
     t.date "dob"
     t.string "last_name"
     t.integer "age"
-    t.boolean "active"
+    t.boolean "active", default: true
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -43,7 +43,7 @@ ActiveRecord::Schema.define(version: 2022_03_11_191345) do
     t.string "first_name"
     t.string "last_name"
     t.string "role"
-    t.boolean "active"
+    t.boolean "active", default: true
     t.string "username"
     t.string "password_digest"
     t.datetime "created_at", null: false

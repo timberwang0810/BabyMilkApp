@@ -8,7 +8,7 @@ class CreateBottles < ActiveRecord::Migration[5.2]
       t.string :storage_location
       t.datetime :administration_date
       t.datetime :expiration_date
-      t.boolean :active
+      t.boolean :active, default: true
 
       t.timestamps
     end
