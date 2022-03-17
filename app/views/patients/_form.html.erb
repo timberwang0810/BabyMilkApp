@@ -23,7 +23,10 @@
         <%= f.error_notification %>
         <div class="row">
             <div class="form-inputs">
-            <%= f.input :name, label_html: { class: 'active' } %>
+            <%= f.input :first_name, required: true, label_html: { class: 'active', name: 'First Name' } %>
+            <%= f.input :last_name, required: true, label_html: { class: 'active', name: 'Last Name' } %>
+            <%= f.input :patient_mrn, required: true, label_html: { class: 'active', name: 'Patient MRN' } %>
+            <%= f.input :dob, as: :datepicker, label_html: { name: 'Date of Birth' } %>
             </div>
         </div>
         <div class="row">

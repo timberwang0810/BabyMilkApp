@@ -4,16 +4,16 @@
   <h4>Active Patients in Scan</h4>
   <table class="striped highlight">
     <thead>
+      <th>MRN</th>
       <th>Name</th>
       <th>Date of Birth</th>
-      
       <th class="align_center">Options</th>
     </thead>
     <% for patient in @active_patients %>
       <tr>
-        <td><%= link_to "#{patient.last_name}, #{patient.first_name}", patient_path(patient) %></td>
-        <td><%= number_to_phone patient.phone %></td>
-        <td><%= mail_to patient.email, patient.email, encode: "javascript" %></td>
+        <td><%= link_to "#{patient.name}", patient_path(patient) %></td>
+        <td><%= "#{patient.dob}"%></td>
+        <td><%= "#{patient.get_age}"%></td>
         <td class="align_center">
           <%= link_to edit_patient_path(patient) do %>
               <i class="material-icons">edit</i>

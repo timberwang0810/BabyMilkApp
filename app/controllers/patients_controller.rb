@@ -1,4 +1,5 @@
 class PatientsController < ApplicationController
+    before_action :set_patient, only: [:show, :edit, :update, :destroy]
     def index
         @active_patients = Patient.active.alphabetical.paginate(page: params[:page]).per_page(15)
         @inactive_patients = Patient.inactive.alphabetical.paginate(page: params[:page]).per_page(15)
