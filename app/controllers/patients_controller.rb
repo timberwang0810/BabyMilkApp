@@ -5,9 +5,6 @@ class PatientsController < ApplicationController
         @inactive_patients = Patient.inactive.alphabetical.pagninate(page: params[:page]).per_page(15)
     end
 
-    def show
-    end
-
     def new
         @patient = Patient.new
     end
@@ -17,11 +14,17 @@ class PatientsController < ApplicationController
         if @patient.save
             # if saved to database
             flash[:notice] = "Successfully created #{@patient.proper_name}."
-            redirect_to patient_path(@patient) # go to show student page
+            redirect_to patient_path(@patient) # go to show patient page
         else
             # return to the 'new' form
             render action: 'new'
         end
+    end
+
+    def edit
+    end
+    
+    def show  
     end
 
     def update
