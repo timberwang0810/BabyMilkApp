@@ -1,0 +1,44 @@
+<div class="card">    
+  <div class="card-content">
+   
+      <div class="row">
+        <%# <div class="form-inputs">
+          <form action="/action_page.php">
+            <label for="fname">First name:</label><br>
+            <input type="text" id="fname" name="fname" ><br>
+            <label for="lname">Last name:</label><br>
+            <input type="text" id="lname" name="lname"><br><br>
+            <label for="dob">Date of Birth:</label><br>
+            <input type="date" id="dob" name="dob" placeholder="mm/dd/yyyy"><br><br>
+            <label for="nurse">Assigned Nurse:</label><br>
+            <input type="text" id="nurse" name="nurse"><br><br>
+            <label for="doa">Date Admitted:</label><br>
+            <input type="date" id="doa" name="doa" placeholder="mm/dd/yyyy"><br><br>
+            <label for="vis">VISIT ID:</label><br>
+            <input type="text" id="vis" name="vis"><br><br>
+            <input type="submit" value="Save">
+        </form> 
+      </div> %>
+        <%= simple_form_for(@patient) do |f| %>
+        <%= f.error_notification %>
+        <div class="row">
+            <div class="form-inputs">
+            <%= f.input :name, label_html: { class: 'active' } %>
+            </div>
+        </div>
+        <div class="row">
+            <div class="form-actions col s8">
+            <%= f.button :submit %>
+            </div>
+        </div>
+        <% end %>
+    </div>
+  </div>
+</div>
+  
+  <div class="row">
+    <div class="form-actions col s7">
+    </div>
+  </div>
+
+
