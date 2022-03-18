@@ -10,7 +10,20 @@
 // Read Sprockets README (https://github.com/rails/sprockets#sprockets-directives) for details
 // about supported directives.
 //
-//= require rails-ujs
+//= require jquery
+//= require materialize-sprockets
 //= require activestorage
 //= require turbolinks
 //= require_tree .
+var currDate = new Date()
+$(document).ready(function () {
+    // $(".dropdown-trigger").dropdown();
+    // $("select").formSelect();
+    $(".datepicker").datepicker({
+        format: "mmmm dd, yyyy",
+        defaultDate: new Date(currDate.getFullYear(), 1, 1),
+        // setDefaultDate: new Date(2000,01,31),
+        maxDate: currDate,
+        yearRange: [currDate.getFullYear()-100, currDate.getFullYear()]
+    });
+})
