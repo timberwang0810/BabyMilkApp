@@ -82,6 +82,7 @@ GEM
       archive-zip (~> 0.10)
       nokogiri (~> 1.8)
     chronic (0.10.2)
+    chunky_png (1.4.0)
     coderay (1.1.3)
     coffee-rails (4.2.2)
       coffee-script (>= 2.2.0)
@@ -154,6 +155,8 @@ GEM
     hirb (0.7.3)
     i18n (1.10.0)
       concurrent-ruby (~> 1.0)
+    img2zpl (1.0.1)
+      mini_magick (~> 4.9)
     io-like (0.3.1)
     jbuilder (2.11.5)
       actionview (>= 5.0.0)
@@ -186,6 +189,7 @@ GEM
     mime-types (3.4.1)
       mime-types-data (~> 3.2015)
     mime-types-data (3.2022.0105)
+    mini_magick (4.11.0)
     mini_mime (1.1.2)
     minitest (5.15.0)
     minitest-rails (3.0.0)
@@ -201,6 +205,7 @@ GEM
     nio4r (2.5.8)
     nokogiri (1.13.3-x86_64-darwin)
       racc (~> 1.4)
+    openssl (3.0.0)
     populator (1.0.0)
     public_suffix (4.0.6)
     puma (3.12.6)
@@ -244,6 +249,10 @@ GEM
       ffi (~> 1.0)
     regexp_parser (2.2.1)
     rexml (3.2.5)
+    rqrcode (2.1.1)
+      chunky_png (~> 1.0)
+      rqrcode_core (~> 1.0)
+    rqrcode_core (1.2.0)
     ruby-progressbar (1.11.0)
     ruby_dep (1.5.0)
     rubyzip (2.3.2)
@@ -322,6 +331,8 @@ GEM
     will_paginate (3.3.1)
     xpath (3.2.0)
       nokogiri (~> 1.8)
+    zebra-zpl (1.1.3)
+      img2zpl (~> 1.0.0)
 
 PLATFORMS
   x86_64-darwin-20
@@ -350,10 +361,12 @@ DEPENDENCIES
   meta_request
   minitest-rails (= 3.0.0)
   minitest-reporters (= 1.1.19)
+  openssl
   populator
   puma (~> 3.11)
   rails (~> 5.2.6, >= 5.2.6.2)
   rails-controller-testing
+  rqrcode (~> 2.0)
   sass-rails (~> 5.0)
   selenium-webdriver
   shoulda (= 3.5.0)
@@ -371,6 +384,7 @@ DEPENDENCIES
   web-console (>= 3.3.0)
   webdrivers
   will_paginate
+  zebra-zpl
 
 RUBY VERSION
    ruby 2.6.9p207
