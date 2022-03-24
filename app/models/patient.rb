@@ -58,7 +58,12 @@ class Patient < ApplicationRecord
     def encode_mrn
         self.patient_mrn = encrypt(@@cipher_key, self.patient_mrn)
     end
-
+    def print_zpl_str(name, label)
+        zpl = ''
+        label.dump_contents zpl
+        puts "\n#{name}:\n#{zpl}\n\n"
+        zpl
+    end
     def generate_qr
         # qr = RQRCode::QRCode.new(self.patient_mrn)
         # png = qr.as_png(
@@ -91,8 +96,13 @@ class Patient < ApplicationRecord
             correction_level: 'H'
         )
         label << qrcode
+        rendered_zpl = Labelary::Label.render zpl: print_zpl_str('qrcode', label)
+        File.open "./app/assets/images/qr/#{self.patient_mrn}.png", 'wb' do |f| # change file name for PNG images
+            f.write rendered_zpl
+        end
         print_job = Zebra::PrintJob.new 'Zebra_Technologies_ZTC_GX420d'
         print_job.print label, 'localhost'
+
         # puts qrcode.to_zpl
         # uri = URI 'http://api.labelary.com/v1/printers/12dpmm/labels/3x2/0'
         # http = Net::HTTP.new uri.host, uri.port
@@ -108,10 +118,6 @@ class Patient < ApplicationRecord
         # else
         #     puts "Error: #{response.body}"
         # end
-        rendered_zpl = Labelary::Label.render zpl: "^xa" + qrcode.to_zpl + "^xz"
-        File.open "./app/assets/images/qr/#{self.patient_mrn}.png", 'wb' do |f| # change file name for PNG images
-            f.write rendered_zpl
-        end
     end
 
 end
