@@ -21,8 +21,8 @@ $(document).ready(function () {
     // $("select").formSelect();
     $(".datepicker").datepicker({
         format: "mmmm dd, yyyy",
-        defaultDate: new Date(currDate.getFullYear(), 1, 1),
-        // setDefaultDate: new Date(2000,01,31),
+        //defaultDate: Date.currDate,
+        setDefaultDate: currDate,
         maxDate: currDate,
         yearRange: [currDate.getFullYear()-100, currDate.getFullYear()]
     });

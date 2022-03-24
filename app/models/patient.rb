@@ -93,20 +93,24 @@ class Patient < ApplicationRecord
         label << qrcode
         print_job = Zebra::PrintJob.new 'Zebra_Technologies_ZTC_GX420d'
         print_job.print label, 'localhost'
-        puts qrcode.to_zpl
-        uri = URI 'http://api.labelary.com/v1/printers/12dpmm/labels/3x2/0'
-        http = Net::HTTP.new uri.host, uri.port
-        request = Net::HTTP::Post.new uri.request_uri
-        request.body = "^xa" + qrcode.to_zpl + "^xz"
-        response = http.request request
+        # puts qrcode.to_zpl
+        # uri = URI 'http://api.labelary.com/v1/printers/12dpmm/labels/3x2/0'
+        # http = Net::HTTP.new uri.host, uri.port
+        # request = Net::HTTP::Post.new uri.request_uri
+        # request.body = "^xa" + qrcode.to_zpl + "^xz"
+        # response = http.request request
 
-        case response
-        when Net::HTTPSuccess then
-            File.open "./app/assets/images/qr/#{self.patient_mrn}.png", 'wb' do |f| # change file name for PNG images
-                f.write response.body
-            end
-        else
-            puts "Error: #{response.body}"
+        # case response
+        # when Net::HTTPSuccess then
+        #     File.open "./app/assets/images/qr/#{self.patient_mrn}.png", 'wb' do |f| # change file name for PNG images
+        #         f.write response.body
+        #     end
+        # else
+        #     puts "Error: #{response.body}"
+        # end
+        rendered_zpl = Labelary::Label.render zpl: "^xa" + qrcode.to_zpl + "^xz"
+        File.open "./app/assets/images/qr/#{self.patient_mrn}.png", 'wb' do |f| # change file name for PNG images
+            f.write rendered_zpl
         end
     end
 

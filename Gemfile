@@ -46,6 +46,7 @@ gem 'cancancan', '3.2.1'
 gem "rqrcode", "~> 2.0"
 gem 'openssl'
 gem 'zebra-zpl'
+gem 'labelary'
 
 # Reduces boot times through caching; required in config/boot.rb
 gem 'bootsnap', '>= 1.1.0', require: false
