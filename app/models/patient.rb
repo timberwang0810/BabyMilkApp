@@ -88,15 +88,35 @@ class Patient < ApplicationRecord
             length:       600,
             print_speed:  3
         )
-
         qrcode = Zebra::Zpl::Qrcode.new(
             data:             self.patient_mrn ,
-            position:         [300,50],
-            scale_factor:     10,
+            position:         [200,100],
+            scale_factor:     6,
             correction_level: 'H'
         )
+        name_text = Zebra::Zpl::Text.new(
+            data: self.name,
+            position: [400,120],
+            font_size: 30,
+            print_mode: "N"
+        )
+        storage_text = Zebra::Zpl::Text.new(
+            data: "Store: FREEZER",
+            position: [400,170],
+            font_size: 30,
+            print_mode: "N"
+        )
+        date_text = Zebra::Zpl::Text.new(
+            data: "Expire: #{Date.today.to_s}",
+            position: [400,220],
+            font_size: 30,
+            print_mode: "N"
+        )
         label << qrcode
-        rendered_zpl = Labelary::Label.render zpl: print_zpl_str('qrcode', label)
+        label << name_text
+        label << storage_text
+        label << date_text
+        rendered_zpl = Labelary::Label.render zpl: print_zpl_str('raw_zpl', label)
         File.open "./app/assets/images/qr/#{self.patient_mrn}.png", 'wb' do |f| # change file name for PNG images
             f.write rendered_zpl
         end
