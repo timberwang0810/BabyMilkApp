@@ -15,7 +15,7 @@ The Zebra printer needs to connect to an outlet in addition to the computer via 
 
 For our app, we are using the "zebra-zpl" gem, which allows us to encode data into QR code and send straight to our printer. Installation and guide are found here: https://github.com/bbulpett/zebra-zpl. The gem can encode several data into ZPL code (which is the language interpreted by the Zebra printer), inject them into a single label object and send it to the printer queue to be printed.
 
-We are also using the "labelary" gem to transform the generated ZPL code into a png file. The gem sends the ZPL code to the Labelary API endpoint, turning it into a raw image, which we then write to a png file id'ed by the ciphered patient MRN number. 
+We are also using the "labelary" gem to transform the generated ZPL code into a png file, found here: https://github.com/rjocoleman/labelary. The gem sends the ZPL code to the Labelary API endpoint, turning it into a raw image, which we then write to a png file id'ed by the ciphered patient MRN number. 
 
 
 
