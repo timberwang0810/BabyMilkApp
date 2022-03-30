@@ -7,7 +7,7 @@ class Patient < ApplicationRecord
     extend AppHelpers::Activeable::ClassMethods
 
     # TODO: Store this as env var
-    @@cipher_key = "peepoo" * 4
+    @@cipher_key = ENV["CIPHER_KEY"]
     # Relationships
     has_many :visits
     has_many :bottles 
@@ -120,8 +120,8 @@ class Patient < ApplicationRecord
         File.open "./app/assets/images/qr/#{self.patient_mrn}.png", 'wb' do |f| # change file name for PNG images
             f.write rendered_zpl
         end
-        print_job = Zebra::PrintJob.new 'Zebra_Technologies_ZTC_GX420d'
-        print_job.print label, 'localhost'
+        # print_job = Zebra::PrintJob.new 'Zebra_Technologies_ZTC_GX420d'
+        # print_job.print label, 'localhost'
 
         # puts qrcode.to_zpl
         # uri = URI 'http://api.labelary.com/v1/printers/12dpmm/labels/3x2/0'
