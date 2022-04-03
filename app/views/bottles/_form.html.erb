@@ -1,0 +1,33 @@
+<div class="card">    
+  <div class="card-content">
+   
+      <div class="row">
+        <%= simple_form_for(@bottle) do |f| %>
+        <%= f.error_notification %>
+        <div class="row">
+            <div class="form-inputs">
+            <%= f.select :patient_id, Patient.all.collect {|p| [p.proper_name, p.id]},label_html: { class: 'active', name: 'Patient' }, required: true %>
+            <%= f.input :collected_date, required: true, label_html: { class: 'active', name: 'Collected Date' }, input_html: {class: 'datepicker'} %>
+            <%= f.input :storage_location, required: true, label_html: { class: 'active', name: 'Storage Location' } %>
+            <%#= f.input :checkin_nurse_id_id, required: true, label_html: { class: 'active', name: 'checkin_nurse_id ID' } %>
+            <%#= f.input :checkout_nurse_id_id, required: true, label_html: { class: 'active', name: 'checkout_nurse_id ID' } %>
+            </div>
+        </div>
+        <div class="row">
+            <div class="waves-effect waves-light btn" >
+            <%= f.button :submit %>
+            </div>
+        </div>
+    
+        
+        <% end %>
+    </div>
+  </div>
+</div>
+  
+  <div class="row">
+    <div class="form-actions col s7">
+    </div>
+  </div>
+
+
