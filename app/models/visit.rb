@@ -1,5 +1,5 @@
 class Visit < ApplicationRecord
-  include AppHelpers::Deletions
+  #include AppHelpers::Deletions
   
   belongs_to :patient 
 
@@ -10,9 +10,9 @@ class Visit < ApplicationRecord
   scope :by_discharge, lambda { order('discharge_date DESC') }
 
   # Validations
-  validates_presence_of :patient_id,:account_number, :admission_date
+  validates_presence_of :patient_id, :account_number, :admission_date
   validates_uniqueness_of :account_number
-  validates_date :admission_date, :on_or_before :discharge_date
+  validates_date :admission_date, :on_or_before => :discharge_date
 
   before_destroy :cannot_destroy_object
 

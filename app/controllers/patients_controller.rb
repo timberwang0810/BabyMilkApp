@@ -5,6 +5,10 @@ class PatientsController < ApplicationController
         @inactive_patients = Patient.inactive.alphabetical.paginate(page: params[:page]).per_page(15)
     end
 
+    def show 
+        #@recent_visits = @pet.visits.by_admission.last(10).to_a 
+    end
+
     def new
         @patient = Patient.new
     end
@@ -24,8 +28,7 @@ class PatientsController < ApplicationController
     def edit
     end
 
-    def show  
-    end
+    
 
     def update
         if @patient.update_attributes(patient_params)

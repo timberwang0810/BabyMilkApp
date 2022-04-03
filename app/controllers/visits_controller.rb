@@ -5,8 +5,11 @@ class VisitsController < ApplicationController
     def index
         # get all visits in reverse chronological order, 10 per page
         
-        @visits = @patient.visits.by_admission.paginate(page: params[:page]).per_page(10)
+        @visits = Visit.by_admission.paginate(page: params[:page]).per_page(10)
     
+    end
+    def show
+        get_related_data()
     end
 
     def new
@@ -16,8 +19,8 @@ class VisitsController < ApplicationController
     def create
         @visit = Visit.new(visit_params)
         if @visit.save
-          flash[:notice] = "Successfully added visit for #{@visit.patient.name}."
-          redirect_to @visit
+          flash[:notice] = "Successfully added visit for #{@visit.patient.proper_name}."
+          redirect_to visit_path(@visit)
         else
           render action: 'new'
         end
@@ -29,8 +32,11 @@ class VisitsController < ApplicationController
     end
 
     private
+    def set_visit
+        @visit = Visit.find(params[:id])
+    end
     def visit_params
-        params.require(:visit).permit(:patient_id, :account_number, :admission_date, :discharge_date)
+        params.require(:visit).permit(:patient_id, :account_number, :admission_date)
     end
 
     def get_related_data
