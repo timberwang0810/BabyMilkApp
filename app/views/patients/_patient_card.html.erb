@@ -1,11 +1,13 @@
 <div class="card">
         <div class="card-content">
             <h5><%= @patient.proper_name %></h5><br />
-            <b>MRN:&nbsp;&nbsp;</b><%= @patient.patient_mrn%><br>
+            <b>MRN:&nbsp;&nbsp;</b><%= @patient.get_mrn%><br>
             <b>Date of Birth:&nbsp;&nbsp;</b><%= @patient.dob%><br>
             <b>Age:&nbsp;&nbsp;</b><%= @patient.get_age%><br>
             <b>Active?&nbsp;&nbsp;</b>
             <%= @patient.active ? "Yes" : "No" %> <br />
+            <b>QR:</b><br>
+            <%= image_tag ("/assets/qr/#{@patient.patient_mrn}.png"), :size => "300x200", class: "img-responsive"%>
         </div>
 </div>
 
