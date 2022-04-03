@@ -6,3 +6,10 @@
 <div>
   <%= render :partial => "partials/object", locals: {model_name: "patient", object: @patient} %>
 </div>
+&nbsp;&nbsp; 
+<div>
+<%= link_to visit_path(@patient),  class: 'waves-effect waves-light btn' do %>
+             &nbsp;<%= "Admit" %>
+          <% end %>
+          &nbsp;&nbsp;&nbsp;&nbsp; 
+</div>

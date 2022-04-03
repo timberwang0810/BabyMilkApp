@@ -1,0 +1,31 @@
+<div class="card">    
+  <div class="card-content">
+   
+      <div class="row">
+        <%= simple_form_for(@visit) do |f| %>
+        <%= f.error_notification %>
+        <div class="row">
+            <div class="form-inputs">
+            <%= f.input :patient_id, required: true, label_html: { class: 'active', name: 'Patient ID' } %>
+            <%= f.input :account_number, required: true, label_html: { class: 'active', name: 'Account Number' } %>
+            <%= f.input :admission_date, label: 'Admission Date', label_html: { class: 'active'}, input_html: {class: 'datepicker'} %>
+            </div>
+        </div>
+        <div class="row">
+            <div class="waves-effect waves-light btn" >
+            <%= f.button :submit %>
+            </div>
+        </div>
+    
+        
+        <% end %>
+    </div>
+  </div>
+</div>
+  
+  <div class="row">
+    <div class="form-actions col s7">
+    </div>
+  </div>
+
+
