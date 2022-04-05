@@ -5,5 +5,7 @@
             <b>Storage Method:&nbsp;&nbsp;</b><%= @bottle.storage_location%><br>
             <b>Active?&nbsp;&nbsp;</b>
             <%= @bottle.active ? "Yes" : "No" %> <br />
+            <b>QR:</b><br>
+            <%= image_tag (@bottle.get_qr_image), :size => "300x200", class: "img-responsive"%>
         </div>
 </div>
