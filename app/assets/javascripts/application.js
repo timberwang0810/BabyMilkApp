@@ -13,8 +13,18 @@
 //= require jquery
 //= require materialize-sprockets
 //= require activestorage
+//= require materialize-form
 //= require turbolinks
 //= require_tree .
+// @import "materialize";
+// @import "https://fonts.googleapis.com/icon?family=Material+Icons";
+
+// Flash fade
+$(function () {
+    $('.alert-box').fadeIn('normal', function () {
+        $(this).delay(3700).fadeOut();
+    });
+});
 var currDate = new Date()
 $(document).ready(function () {
     // $(".dropdown-trigger").dropdown();

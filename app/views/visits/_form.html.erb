@@ -6,9 +6,11 @@
         <%= f.error_notification %>
         <div class="row">
             <div class="form-inputs">
-            <%= f.input :patient_id, required: true, label_html: { class: 'active', name: 'Patient ID' } %>
+            <%# <%= f.input :patient_id, required: true, label_html: { class: 'active', name: 'Patient ID' }, input_html: {id: 'patient_id', value: @visit.patient.id } %>
+            <%= f.association :patient, collection: Patient.all, :label_method => lambda { |p| "#{p.proper_name}" },
+            label_html: { class: 'active', name: 'Patient' }, input_html: {id: 'patient', value: @visit.patient }%>
             <%= f.input :account_number, required: true, label_html: { class: 'active', name: 'Account Number' } %>
-            <%= f.input :admission_date, label: 'Admission Date', label_html: { class: 'active'}, input_html: {class: 'datepicker'} %>
+            <%= f.input :admission_date, label: 'Admission Date', label_html: { class: 'active'}, input_html: {class: 'datepicker', id: 'admission_date', value: @visit.admission_date} %>
             </div>
         </div>
         <div class="row">

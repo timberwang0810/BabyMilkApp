@@ -14,13 +14,15 @@ class VisitsController < ApplicationController
 
     def new
         @visit = Visit.new
+        @visit.patient = Patient.find(params[:patient_id])
+        @visit.admission_date = Date.current
     end
 
     def create
         @visit = Visit.new(visit_params)
         if @visit.save
-          flash[:notice] = "Successfully added visit for #{@visit.patient.proper_name}."
-          redirect_to visit_path(@visit)
+          flash[:notice] = "Successfully admitted #{@visit.patient.proper_name}."
+          redirect_to patient_path(@visit.patient)
         else
           render action: 'new'
         end
