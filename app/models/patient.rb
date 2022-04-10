@@ -18,7 +18,7 @@ class Patient < ApplicationRecord
     validates_uniqueness_of :patient_mrn
     validates_date :dob, :on_or_before => lambda { Date.current }
 
-    before_save :encode_mrn 
+    before_create :encode_mrn 
     # Methods
     def name
         "#{last_name}, #{first_name}"
@@ -33,9 +33,16 @@ class Patient < ApplicationRecord
     end
 
     def get_mrn
+        puts self.patient_mrn
         decrypt(@@cipher_key, self.patient_mrn)
     end
-
+    def get_current_visit
+        if !self.admitted?
+            return nil 
+        end
+        puts "herehaha"
+        self.visits.select{|v| v.is_active?}.first
+    end
     private
     def encrypt(key, str)
         cipher = OpenSSL::Cipher.new('DES-EDE3-CBC').encrypt

@@ -4,6 +4,8 @@
             <b>MRN:&nbsp;&nbsp;</b><%= @patient.get_mrn%><br>
             <b>Date of Birth:&nbsp;&nbsp;</b><%= @patient.dob%><br>
             <b>Age:&nbsp;&nbsp;</b><%= @patient.get_age%><br>
+            <b>Admitted?&nbsp;&nbsp;</b>
+            <%= @patient.admitted ? "Yes" : "No" %> <br />
             <b>Active?&nbsp;&nbsp;</b>
             <%= @patient.active ? "Yes" : "No" %> <br />
         </div>
