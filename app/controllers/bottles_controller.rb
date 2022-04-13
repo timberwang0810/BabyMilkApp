@@ -1,5 +1,6 @@
 class BottlesController < ApplicationController
     before_action :set_bottle, only: [:show, :edit, :update, :destroy]
+    before_action :check_login
     def index
         @active_bottles = Bottle.active.by_patient.paginate(page: params[:page]).per_page(15)
     end
