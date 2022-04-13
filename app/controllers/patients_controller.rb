@@ -1,5 +1,5 @@
 class PatientsController < ApplicationController
-    before_action :set_patient, only: [:show, :edit, :update, :destroy]
+    before_action :set_patient, only: [:show, :edit, :update, :destroy, :discharge]
     def index
         @active_patients = Patient.active.alphabetical.paginate(page: params[:page]).per_page(15)
         @inactive_patients = Patient.inactive.alphabetical.paginate(page: params[:page]).per_page(15)
@@ -28,8 +28,6 @@ class PatientsController < ApplicationController
     def edit
     end
 
-    
-
     def update
         if @patient.update_attributes(patient_params)
             flash[:notice] = "Updated all information on #{@patient.proper_name}"
@@ -45,6 +43,14 @@ class PatientsController < ApplicationController
         redirect_to patients_url, notice: flash[:notice]
 
     end
+
+    def discharge 
+        @patient.get_current_visit.discharge_date = Date.current 
+        @patient.admitted = false 
+        @patient.save
+        flash[:notice] = "Patient #{@patient.proper_name} discharged."
+        redirect_to patient_path(@patient) 
+    end 
 
     private
 

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_03_17_174520) do
+ActiveRecord::Schema.define(version: 2022_04_10_183102) do
 
   create_table "bottles", force: :cascade do |t|
     t.integer "patient_id"
@@ -37,6 +37,7 @@ ActiveRecord::Schema.define(version: 2022_03_17_174520) do
     t.boolean "active", default: true
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.boolean "admitted", default: false
   end
 
   create_table "users", force: :cascade do |t|
