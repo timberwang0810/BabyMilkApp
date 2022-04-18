@@ -32,3 +32,6 @@
 
 # Ignore environmental variables
 .env
+
+# Ignore locally generated QR codes
+/assets/config/images/qr/*
