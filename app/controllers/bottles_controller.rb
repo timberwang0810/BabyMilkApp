@@ -9,15 +9,25 @@ class BottlesController < ApplicationController
     end
 
     def create
-        @bottle = Bottle.new(bottle_params)
-        if @bottle.save
-            # if saved to database
-            flash[:notice] = "Successfully created bottle."
-            redirect_to bottle_path(@bottle) # go to show bottle page
-        else
-            # return to the 'new' form
-            render action: 'new'
+        puts params[:other][:amount]
+        amount = params[:other][:amount].to_i
+        amount.times do 
+            @bottle = Bottle.new(bottle_params)
+            if !@bottle.save 
+                render action: 'new'
+            end
         end
+        flash[:notice] = "Successfully created bottles for patient."
+        redirect_to patient_path(@bottle.patient) # go to show bottle page
+        # @bottle = Bottle.new(bottle_params)
+        # if @bottle.save
+        #     # if saved to database
+        #     flash[:notice] = "Successfully created bottle."
+        #     redirect_to bottle_path(@bottle) # go to show bottle page
+        # else
+        #     # return to the 'new' form
+        #     render action: 'new'
+        # end
     end
 
     def edit

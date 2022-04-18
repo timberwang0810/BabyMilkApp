@@ -13,8 +13,8 @@
 //= require jquery
 //= require rails-ujs
 //= require materialize-sprockets
-//= require activestorage
 //= require materialize-form
+//= require activestorage
 //= require turbolinks
 //= require_tree .
 // @import "materialize";

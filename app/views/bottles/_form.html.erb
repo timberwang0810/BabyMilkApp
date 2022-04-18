@@ -11,6 +11,9 @@
             <%= f.input :storage_location, required: true, label_html: { class: 'active', name: 'Storage Location' } %>
             <%#= f.input :checkin_nurse_id_id, required: true, label_html: { class: 'active', name: 'checkin_nurse_id ID' } %>
             <%#= f.input :checkout_nurse_id_id, required: true, label_html: { class: 'active', name: 'checkout_nurse_id ID' } %>
+            <%= simple_fields_for :other do |o| %>
+              <%= o.input :amount, as: :numeric, label: 'Bottle Amounts' %>
+            <% end %>
             </div>
         </div>
         <div class="row">
