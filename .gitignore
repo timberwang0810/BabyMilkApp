@@ -34,4 +34,4 @@
 .env
 
 # Ignore locally generated QR codes
-/assets/config/images/qr/*
+/app/assets/images/qr/*
