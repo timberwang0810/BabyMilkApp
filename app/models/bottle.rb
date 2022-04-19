@@ -1,5 +1,7 @@
 require "openssl"
 require 'net/http'
+require 'time'
+
 class Bottle < ApplicationRecord
   include AppHelpers::Activeable::InstanceMethods
   extend AppHelpers::Activeable::ClassMethods
@@ -16,7 +18,7 @@ class Bottle < ApplicationRecord
   #add validations for different types of expiration dates
   #validates_datetime :expiration_date, after: :collected_date 
 
-  validates :storage_location, inclusion: { in: %w(fridge freezer), 
+  validates :storage_location, inclusion: { in: %w(fridge freezer Freezer Fridge), 
     message: "%{value} is not a valid storage location" }
 
 
@@ -39,10 +41,12 @@ class Bottle < ApplicationRecord
   #fix this
   protected
   def set_bottle_details
-    if self.storage_location == 'fridge'
+    if self.storage_location.downcase == 'fridge'
       self.expiration_date = self.collected_date + 14
-    elsif self.storage_location =='freezer'
+      # self.save
+    elsif self.storage_location.downcase =='freezer'
       self.expiration_date = self.collected_date + 182.5
+      # self.save
     else
       self.errors.add(:bottle, "invalid storage location")
     end
@@ -101,8 +105,14 @@ class Bottle < ApplicationRecord
             print_mode: "N"
         )
         date_text = Zebra::Zpl::Text.new(
-            data: "Expire: #{self.expiration_date}",
+            data: "Expire: #{self.expiration_date.strftime("%m/%d/%Y")}",
             position: [400,220],
+            font_size: 30,
+            print_mode: "N"
+        )
+        time_text = Zebra::Zpl::Text.new(
+            data: "#{self.expiration_date.strftime("%I:%M%p")}",
+            position: [500,270],
             font_size: 30,
             print_mode: "N"
         )
@@ -110,12 +120,13 @@ class Bottle < ApplicationRecord
         label << name_text
         label << storage_text
         label << date_text
+        label << time_text
         rendered_zpl = Labelary::Label.render zpl: print_zpl_str('raw_zpl', label)
         File.open "./app/assets/images/qr/#{encrypted}.png", 'wb' do |f| # change file name for PNG images
             f.write rendered_zpl
         end
-        # print_job = Zebra::PrintJob.new 'Zebra_Technologies_ZTC_GX420d'
-        # print_job.print label, 'localhost'
+        print_job = Zebra::PrintJob.new 'Zebra_Technologies_ZTC_GX420d'
+        print_job.print label, 'localhost'
     end
 
 

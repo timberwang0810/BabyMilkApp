@@ -19,7 +19,7 @@ gem 'uglifier', '>= 1.3.0'
 # Use CoffeeScript for .coffee assets and views
 gem 'coffee-rails', '~> 4.2'
 # Turbolinks makes navigating your web application faster. Read more: https://github.com/turbolinks/turbolinks
-gem 'turbolinks', '~> 5'
+# gem 'turbolinks', '~> 5'
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 gem 'jbuilder', '~> 2.5'
 # Use Redis adapter to run Action Cable in production
@@ -36,9 +36,10 @@ gem 'jbuilder', '~> 2.5'
 # Other gems
 gem 'validates_timeliness', '4.0.2'
 gem 'time_date_helpers', '0.0.4'
-gem 'materialize-sass', '~> 1.0.0'
+gem 'materialize-sass', '0.100.2'
 gem 'simple_form'
-gem 'materialize-form', git: 'https://github.com/cmu-is-projects/materialize-form.git'
+gem 'materialize-form', '1.0.8'
+# gem 'materialize-form', git: 'https://github.com/cmu-is-projects/materialize-form.git'
 gem 'will_paginate'
 gem 'jquery-rails', '4.3.1'
 gem 'jquery-ui-rails', '6.0.1'
