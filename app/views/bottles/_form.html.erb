@@ -7,15 +7,15 @@
         <div class="row">
             <div class="form-inputs">
             <%= f.input :patient_id, collection: Patient.all,required: true, label_html: { class: 'active', name: 'Patient'  } %>
-            <%= f.input :collected_date, required: true, label_html: { class: 'active', name: 'Collected Date' }, input_html: {class: 'datepicker'} %>
+            <%= f.input :collected_date, label: 'Collection Date', label_html: { class: 'active'}, input_html: {id: 'datetime'} %>
             <%# <%= f.input :storage_location, required: true, label_html: { class: 'active', name: 'Storage Location' } %> 
             <%= f.input :storage_location, as: :radio_buttons, collection: [['Fridge','Fridge'],['Freezer', 'Freezer']], label_method: :second, value_method: :first, required: true, 
-            label_html: { name: 'Storage Location' } %>
+            label_html: { name: 'Storage Location' }%>
             
             <%#= f.input :checkin_nurse_id_id, required: true, label_html: { class: 'active', name: 'checkin_nurse_id ID' } %>
             <%#= f.input :checkout_nurse_id_id, required: true, label_html: { class: 'active', name: 'checkout_nurse_id ID' } %>
             <%= simple_fields_for :other do |o| %>
-              <%= o.input :amount, as: :numeric, label: 'Bottle Amounts' %>
+              <%= o.input :amount, as: :numeric, label: 'Bottle Amounts', input_html: {min: '0'}%>
             <% end %>
             </div>
         </div>

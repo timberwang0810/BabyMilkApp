@@ -8,6 +8,8 @@
             <%= @patient.admitted ? "Yes" : "No" %> <br />
             <b>Active?&nbsp;&nbsp;</b>
             <%= @patient.active ? "Yes" : "No" %> <br />
+            <b>In Fridge:&nbsp;&nbsp;</b><%= Bottle.for_patient(@patient).for_location("Fridge").count%><br>
+            <b>In Freezer:&nbsp;&nbsp;</b><%= Bottle.for_patient(@patient).for_location("Freezer").count%><br>
         </div>
 </div>
 
