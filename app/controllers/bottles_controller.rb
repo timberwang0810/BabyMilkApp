@@ -12,9 +12,10 @@ class BottlesController < ApplicationController
         puts params[:other][:amount]
         amount = params[:other][:amount].to_i
         amount.times do 
-            @bottle = Bottle.new(bottle_params)
+            @bottle = Bottle.new(create_params)
             if !@bottle.save 
                 render action: 'new'
+                break
             end
         end
         flash[:notice] = "Successfully created bottles for patient."
@@ -37,12 +38,12 @@ class BottlesController < ApplicationController
     end
 
     def update
-        if @bottle.update_attributes(bottle_params)
-            flash[:notice] = "Updated all information on bottle"
-            redirect_to @bottle
-        else
-            render action: 'edit'
+        if params[:other][:confirm]
+            @bottle.storage_location = @bottle.storage_location.downcase == "fridge" ? "Freezer" : "Fridge"
+            @bottle.save
+            flash[:notice] = "Updated storage location on bottle"
         end
+        redirect_to patient_path(@bottle.patient)
     end
 
     def destroy
@@ -58,7 +59,7 @@ class BottlesController < ApplicationController
     end
 
 
-    def bottle_params
-        params.require(:bottle).permit(:patient_id, :checkin_nurse_id_id, :checkout_nurse_id_id, :collected_date, :storage_location, :administration_date, :expiration_date)
+    def create_params
+        params.require(:bottle).permit(:patient_id, :checkin_nurse_id_id, :collected_date, :storage_location)
     end
 end
