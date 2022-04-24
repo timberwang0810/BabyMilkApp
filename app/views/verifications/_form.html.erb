@@ -1,0 +1,11 @@
+
+<%= form_for @verifier do |f| %>
+
+  <%= f.label :bottle_id, required: true %>
+  <%= f.text_field :bottle_id, required: true %>
+
+  <%= f.label :patient_id, required: true %>
+  <%= f.text_field :patient_id, required: true %>
+
+  <%= f.button :submit %>
+<% end %>

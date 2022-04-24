@@ -36,7 +36,7 @@ class Bottle < ApplicationRecord
   before_create :set_bottle_details
   before_update :edit_bottle_details
   after_save :generate_qr
-  after_destroy :make_bottle_inactive
+  #after_destroy :make_bottle_inactive
 
   def get_qr_image
     "/assets/qr/#{encrypt(@@cipher_key, self.id.to_s)}.png"
