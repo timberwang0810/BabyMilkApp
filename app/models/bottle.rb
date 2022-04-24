@@ -71,7 +71,7 @@ class Bottle < ApplicationRecord
 
   def edit_bottle_details
     if self.storage_location.downcase == 'fridge'
-      self.expiration_date = DateTime.tomorrow
+      self.expiration_date = DateTime.now.next_day(1)
       # self.save
     elsif self.storage_location.downcase =='freezer'
       self.expiration_date = self.collected_date.next_year(1)
