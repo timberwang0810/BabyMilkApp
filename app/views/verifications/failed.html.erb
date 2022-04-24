@@ -1,0 +1,32 @@
+<%= stylesheet_link_tag "verification" %>
+
+<div class="row">
+  <div class="column">
+    <div class="card">
+       <div class="on-the-left" >
+        <h5 class = "thick"><%= "This bottle belongs to #{@bottle.patient.proper_name}." %></h5>
+        <h6 class = "incorrect"><%= "The selected patient was #{@patient.proper_name}." %></h6>
+        <br>
+        <h6><%= "Bottle Storage Location: #{@bottle.storage_location.titleize}" %></h6>
+        <h6><%= "Bottle Expiration Date: #{@bottle.expiration_date.to_date}" %></h6>
+        </div>
+    </div>
+    <div class="on-the-center" >
+    <%= link_to(eval("new_verification_path"), class: 'waves-effect waves-light btn') do %>
+          &nbsp;<%= "Verify Different Bottle" %>
+    <% end %>
+    </div>
+  </div>
+  <div class="column">
+    <div class="card">
+    <div class = "img-center">
+      <div class = "verify">
+        <%= image_tag 'verification/failure.png' %>
+      </div>
+      </div>
+      <div class="on-the-center">
+        <h5><%= "Error! Bottle does not belong to patient!" %></h5><br />
+    </div>
+    </div>
+  </div>
+</div>

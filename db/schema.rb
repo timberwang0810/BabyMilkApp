@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_04_10_183102) do
+ActiveRecord::Schema.define(version: 2022_04_21_003035) do
 
   create_table "bottles", force: :cascade do |t|
     t.integer "patient_id"
@@ -49,6 +49,15 @@ ActiveRecord::Schema.define(version: 2022_04_10_183102) do
     t.string "password_digest"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "verifiers", force: :cascade do |t|
+    t.integer "bottle_id"
+    t.integer "patient_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["bottle_id"], name: "index_verifiers_on_bottle_id"
+    t.index ["patient_id"], name: "index_verifiers_on_patient_id"
   end
 
   create_table "visits", force: :cascade do |t|
