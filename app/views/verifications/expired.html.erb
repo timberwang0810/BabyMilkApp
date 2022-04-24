@@ -5,6 +5,7 @@
     <div class="card">
        <div class="on-the-left" >
         <h5 class = "thick"><%= "This bottle is expired!" %></h5>
+        <h6><%= "Please dispose of this bottle immediately." %></h5>
         <br>
         <h6><%= "Bottle Expired On: "%></h6><h6 class = "incorrect"><%="#{@bottle.expiration_date.strftime("%B %d, %Y")} at #{@bottle.expiration_date.strftime("%I:%M %p")}" %></h6>
         </div>
