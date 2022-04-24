@@ -11,13 +11,16 @@ class BottlesController < ApplicationController
     end
 
     def create
+        authorize! :create, @bottle
         puts params[:other][:amount]
         amount = params[:other][:amount].to_i
         amount.times do 
             @bottle = Bottle.new(create_params)
+            puts @bottle.collected_date
+            puts @bottle.save!
             if !@bottle.save 
                 render action: 'new'
-                break
+                return
             end
         end
         flash[:notice] = "Successfully created bottles for patient."
