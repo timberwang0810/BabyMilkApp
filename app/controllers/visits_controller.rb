@@ -1,10 +1,9 @@
 class VisitsController < ApplicationController
     before_action :set_visit, only: [:show, :edit, :update, :destroy]
-    #before_action :check_login
+    before_action :check_login
 
     def index
         # get all visits in reverse chronological order, 10 per page
-        
         @visits = Visit.by_admission.paginate(page: params[:page]).per_page(10)
     
     end

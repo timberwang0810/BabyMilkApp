@@ -40,7 +40,6 @@ class Patient < ApplicationRecord
         if !self.admitted?
             return nil 
         end
-        puts "herehaha"
         self.visits.select{|v| v.is_active?}.first
     end
     private

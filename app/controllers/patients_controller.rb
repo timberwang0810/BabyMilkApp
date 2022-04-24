@@ -1,5 +1,6 @@
 class PatientsController < ApplicationController
     before_action :set_patient, only: [:show, :edit, :update, :destroy, :discharge]
+    #before_action :check_login
     def index
         @active_patients = Patient.active.alphabetical.paginate(page: params[:page]).per_page(15)
         @inactive_patients = Patient.inactive.alphabetical.paginate(page: params[:page]).per_page(15)
@@ -10,6 +11,7 @@ class PatientsController < ApplicationController
     end
 
     def new
+        authorize! :new, @patient
         @patient = Patient.new
     end
 
@@ -26,9 +28,11 @@ class PatientsController < ApplicationController
     end
 
     def edit
+        authorize! :update, @band
     end
 
     def update
+        authorize! :update, @band
         if @patient.update_attributes(patient_params)
             flash[:notice] = "Updated all information on #{@patient.proper_name}"
             redirect_to @patient
@@ -38,6 +42,7 @@ class PatientsController < ApplicationController
     end
 
     def destroy
+        authorize! :destroy, @patient
         @patient.destroy
         flash[:notice] = "Removed #{@patient.proper_name} from the system"
         redirect_to patients_url, notice: flash[:notice]

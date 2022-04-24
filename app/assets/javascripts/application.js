@@ -13,21 +13,28 @@
 //= require jquery
 //= require rails-ujs
 //= require materialize-sprockets
-//= require activestorage
 //= require materialize-form
-//= require turbolinks
+//= require materializedatetimepicker
 //= require_tree .
 // @import "materialize";
 // @import "https://fonts.googleapis.com/icon?family=Material+Icons";
 
 // Flash fade
+$(document).ready(function () {
+    window.materializeForm.init()
+});
 $(function () {
     $('.alert-box').fadeIn('normal', function () {
         $(this).delay(3700).fadeOut();
     });
 });
 var currDate = new Date()
+$('.datepicker').on('mousedown', function preventClosing(event) {
+    event.preventDefault();
+});
 $(document).ready(function () {
+    console.log("hahaha")
+    M.AutoInit();
     // $(".dropdown-trigger").dropdown();
     // $("select").formSelect();
     $(".datepicker").datepicker({
@@ -37,4 +44,8 @@ $(document).ready(function () {
         maxDate: currDate,
         yearRange: [currDate.getFullYear()-100, currDate.getFullYear()]
     });
+})
+$(document).ready(function() {
+    M.AutoInit();
+    var DateField = MaterialDateTimePicker.create($('#datetime'));
 })

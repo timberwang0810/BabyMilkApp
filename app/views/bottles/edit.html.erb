@@ -1,0 +1,24 @@
+<div>
+<h5>Moving the Bottle Below to New Location...</h5>
+</div>
+
+<div class="row">
+     <div class="col s6">
+      <%= render "bottle_card", bottle: @bottle %>
+    </div>
+</div>
+
+<div>
+<h7>Do you wish to move the bottle from <%= @bottle.storage_location %> to <%= @bottle.storage_location.downcase == "freezer" ? "Fridge" : "Freezer"%></h7>
+</div>
+<div class="container">
+      <div class="row">
+        <div class="col s12">
+          <p>&nbsp;</p>
+          <%= render 'form', bottle: @bottle, isNew: false%>
+          <%= yield %>
+
+        </div>
+      </div>
+    
+</div>
