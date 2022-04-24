@@ -230,15 +230,15 @@ GEM
       builder
       minitest (>= 5.0)
       ruby-progressbar
-    msgpack (1.4.5)
+    msgpack (1.5.1)
     multi_test (0.1.2)
     multipart-post (2.1.1)
     nio4r (2.5.8)
-    nokogiri (1.13.3-x86_64-darwin)
+    nokogiri (1.13.4-x86_64-darwin)
       racc (~> 1.4)
     openssl (3.0.0)
     populator (1.0.0)
-    public_suffix (4.0.6)
+    public_suffix (4.0.7)
     puma (3.12.6)
     racc (1.6.0)
     rack (2.2.3)
@@ -278,7 +278,7 @@ GEM
     rb-fsevent (0.11.1)
     rb-inotify (0.10.1)
       ffi (~> 1.0)
-    regexp_parser (2.2.1)
+    regexp_parser (2.3.0)
     rexml (3.2.5)
     rqrcode (2.1.1)
       chunky_png (~> 1.0)
@@ -338,9 +338,6 @@ GEM
     time_date_helpers (0.0.4)
       chronic
     timeliness (0.3.10)
-    turbolinks (5.2.1)
-      turbolinks-source (~> 5.2)
-    turbolinks-source (5.2.0)
     tzinfo (1.2.9)
       thread_safe (~> 0.1)
     uglifier (4.2.0)
@@ -412,7 +409,6 @@ DEPENDENCIES
   spring-watcher-listen (~> 2.0.0)
   sqlite3
   time_date_helpers (= 0.0.4)
-  turbolinks (~> 5)
   tzinfo-data
   uglifier (>= 1.3.0)
   validates_timeliness (= 4.0.2)
