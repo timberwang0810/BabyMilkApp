@@ -4,7 +4,6 @@ class VisitsController < ApplicationController
 
     def index
         # get all visits in reverse chronological order, 10 per page
-        
         @visits = Visit.by_admission.paginate(page: params[:page]).per_page(10)
     
     end

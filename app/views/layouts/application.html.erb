@@ -17,19 +17,25 @@
     <%= render :partial => "partials/nav" %>
     <div id="login">
       <% if logged_in? %>
-        <%= link_to 'Logout', logout_path %>
-        <br>[<%= current_user.proper_name %>:<%= current_user.role %>]
+        <div class="right align">
+          <i class="material-icons">person</i>
+        </div>
+        <%= link_to 'Logout', logout_path, class:'right'%>
+        
       <% else %>
-        <%= link_to 'Login', login_path %>
+        <div class="right align">
+        <i class="material-icons">person</i>
+        </div>
+        <%= link_to 'Login', login_path, class:'right' %>
       <% end %>
 		</div>
+    <br>
     <div class="container">
       <div class="row">
         <div class="col s12">
           <%= render :partial => "partials/flash" %>
-          
-          <!-- MAIN CONTENT OF TEMPLATE GOES HERE -->
-          <%= yield %>
+            <!-- MAIN CONTENT OF TEMPLATE GOES HERE -->
+            <%= yield %>
 
         </div>
       </div>

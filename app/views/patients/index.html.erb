@@ -1,3 +1,4 @@
+<% if logged_in? %>
 <% if @active_patients.empty? %>
   <h4>There are no patients in the system at this time.</h4>
 <% else %>
@@ -12,23 +13,28 @@
       <th>Name</th>
       <th>Date of Birth</th>
       <th>age</th>
+      <% if can? :edit, Patient %>
       <th class="align_center">Options</th>
+      <% end %>
     </thead>
     <% for patient in @active_patients %>
       <tr>
         <td><%= link_to "#{patient.name}", patient_path(patient) %></td>
         <td><%= "#{patient.dob}"%></td>
         <td><%= "#{patient.get_age}"%></td>
-        <td class="align_center">
-          <%= link_to edit_patient_path(patient) do %>
-              <i class="material-icons">edit</i>
-          <% end %>
-          &nbsp;&nbsp;&nbsp;&nbsp; 
-          <%= link_to(patient_path(patient), method: :delete, data: { confirm: 'Are you sure you wish to delete this information?' }) do %>
-              <i class="material-icons">delete</i>
-          <% end %>
-          
-        </td>
+
+        <% if can? :edit, Patient %>
+          <td class="align_center">
+            <%= link_to edit_patient_path(patient) do %>
+                <i class="material-icons">edit</i>
+            <% end %>
+            &nbsp;&nbsp;&nbsp;&nbsp; 
+            <%= link_to(patient_path(patient), method: :delete, data: { confirm: 'Are you sure you wish to delete this information?' }) do %>
+                <i class="material-icons">delete</i>
+            <% end %>
+            
+          </td>
+        <% end %>
       </tr>
     <% end %>
   </table>
@@ -37,14 +43,16 @@
 <% end %>
 <p>&nbsp;</p>
 
+<% if can? :create, Patient %>
 <p><strong>
 <%= link_to "Add a New patient", new_patient_path, class: 'waves-effect waves-light btn' %> 
 </strong></p>
-
+<% end %>
     </div>
 </div>
 
 
  </div>
 </div>
+<% end %>
 
