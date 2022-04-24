@@ -1,7 +1,9 @@
 <div class="card">
         <div class="card-content">
             <h5><%= @patient.proper_name %></h5><br />
-            <b>MRN:&nbsp;&nbsp;</b><%= @patient.get_mrn%><br>
+            <% if can? :edit, Patient %>
+               <b>MRN:&nbsp;&nbsp;</b><%= @patient.get_mrn%><br>
+            <% end %>
             <b>Date of Birth:&nbsp;&nbsp;</b><%= @patient.dob%><br>
             <b>Age:&nbsp;&nbsp;</b><%= @patient.get_age%><br>
             <b>Admitted?&nbsp;&nbsp;</b>
