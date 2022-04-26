@@ -24,14 +24,14 @@ html {
     background-color: #d4ebf2;
     padding-top: 10px;
     padding-bottom: 10px;
-    margin-bottom: 0px;
-    color: white;
+    margin-top: auto;
+    margin-bottom: auto;
+    color: #C66;
     line-height: 2rem;
     display: flex;
     min-height: 35vh;
     flex-direction: column;
     flex: 1 0 auto;
-  
   }
  
   #form-inputs {
@@ -296,6 +296,13 @@ input[type=text].search {
     background-color: rgba(0, 0, 0, 0.42);
     border-color: #949494
 }
+
+.a-primary{
+  color: #C66;
+  font-weight: bold;
+}
+
+
 
 
 

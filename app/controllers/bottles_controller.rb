@@ -17,7 +17,6 @@ class BottlesController < ApplicationController
         amount.times do 
             @bottle = Bottle.new(create_params)
             puts @bottle.collected_date
-            puts @bottle.save!
             if !@bottle.save 
                 render action: 'new'
                 return

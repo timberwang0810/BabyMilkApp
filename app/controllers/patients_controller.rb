@@ -28,11 +28,11 @@ class PatientsController < ApplicationController
     end
 
     def edit
-        authorize! :update, @band
+        authorize! :update, @patient
     end
 
     def update
-        authorize! :update, @band
+        authorize! :update, @patient
         if @patient.update_attributes(patient_params)
             flash[:notice] = "Updated all information on #{@patient.proper_name}"
             redirect_to @patient

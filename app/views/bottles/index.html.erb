@@ -17,7 +17,7 @@
     </thead>
     <% for bottle in @active_bottles %>
       <tr>
-        <td><%= "#{bottle.id}"%></td>
+        <td><%= link_to "#{bottle.id}", bottle_path(bottle) %></td>
         <td><%= "#{bottle.patient.proper_name}"%></td>
         <td><%= "#{bottle.collected_date}"%></td>
         <td><%= "#{bottle.expiration_date}"%></td>

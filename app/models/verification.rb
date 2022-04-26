@@ -18,7 +18,7 @@ class Verification
 
     def expired
         @bottle = Bottle.find(bottle_id)
-        if @bottle.expiration_date < Date.today
+        if @bottle.expiration_date < DateTime.now
             return true
         else
             return false
