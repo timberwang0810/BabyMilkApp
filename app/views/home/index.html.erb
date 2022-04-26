@@ -1,12 +1,40 @@
+<%= stylesheet_link_tag "verification" %>
 
 <div class="container">
       <div class="row">
         <div class="col s12">
-          <p>&nbsp;</p>
-          <p>WELCOME TO THE CHILDREN'S HOME!</p>
-          <%= yield %>
+            <h1 class = "on-the-center">Welcome!</h1>
         </div>
       </div>
+</div>
+
+<br/>
+
+<div class="container">
+      <div class="row">
+        <div class="col s12">
+          <div class = "card">
+            <h2 class = "on-the-center"><%= link_to "Verify", new_verification_path %></h2>
+          </div>
+        </div>
+      </div>
+</div>
+
+
+
+<div class="row">
+  <div class="column">
+    <div class="card">
+    <h4 class = "on-the-center"><%= link_to "Manage Patients", patients_path %></h4>
+    </div>
+  </div>
+
+  <div class="column">
+    <div class="card">
+    <h4 class = "on-the-center"><%= link_to "Manage Bottles", bottles_path %></h4>
+    </div>
+  </div>
+
 </div>
 
   

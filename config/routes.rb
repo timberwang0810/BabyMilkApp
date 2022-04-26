@@ -23,6 +23,6 @@ Rails.application.routes.draw do
   get 'logout' => 'sessions#destroy', :as => :logout
 
   # Default route
-  root :to => 'home#index'
+  root :to => 'sessions#new'
 
 end
