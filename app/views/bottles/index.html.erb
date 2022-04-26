@@ -21,6 +21,7 @@
         <td><%= "#{bottle.patient.proper_name}"%></td>
         <td><%= "#{bottle.collected_date}"%></td>
         <td><%= "#{bottle.expiration_date}"%></td>
+        <% if can? :edit, Bottle %>
         <td class="align_center">
           <%= link_to edit_bottle_path(bottle) do %>
               <i class="material-icons">edit</i>
@@ -30,6 +31,7 @@
               <i class="material-icons">delete</i>
           <% end %>
         </td>
+        <%end%>
       </tr>
     <% end %>
   </table>
@@ -37,10 +39,11 @@
   <%= will_paginate @active_bottles, previous_label: "Previous&nbsp;", next_label: "&nbsp;Next" %>
 <% end %>
 <p>&nbsp;</p>
-
+<% if can? :create, Bottle %>
 <p><strong>
 <%= link_to "Add a New bottle", new_bottle_path, class: 'waves-effect waves-light btn' %> 
 </strong></p>
+<%end%>
 
     </div>
 </div>
