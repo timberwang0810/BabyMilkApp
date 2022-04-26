@@ -13,7 +13,9 @@
       <th>Patient</th>
       <th>Collected Date</th>
       <th>Expiration Date</th>
+      <% if can? :edit, Bottle %>
       <th class="align_center">Options</th>
+       <% end %>
     </thead>
     <% for bottle in @active_bottles %>
       <tr>
