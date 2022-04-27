@@ -364,6 +364,7 @@ GEM
       img2zpl (~> 1.0.0)
 
 PLATFORMS
+  x86_64-darwin-20
   x86_64-darwin-21
 
 DEPENDENCIES
@@ -422,4 +423,3 @@ RUBY VERSION
 
 BUNDLED WITH
    2.3.9
-
