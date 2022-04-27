@@ -1,17 +1,48 @@
 <div class="card">
         <div class="card-content">
+            <% if @patient.admitted %>
+                <div id="greenbox">
+                    Admitted
+                </div>
+            <% else %>
+                <div id="redbox">
+                    Unadmitted
+                </div>
+            <% end %>
             <h5><%= @patient.proper_name %></h5><br />
             <% if can? :edit, Patient %>
                <b>MRN:&nbsp;&nbsp;</b><%= @patient.get_mrn%><br>
             <% end %>
             <b>Date of Birth:&nbsp;&nbsp;</b><%= @patient.dob%><br>
             <b>Age:&nbsp;&nbsp;</b><%= @patient.get_age%><br>
-            <b>Admitted?&nbsp;&nbsp;</b>
-            <%= @patient.admitted ? "Yes" : "No" %> <br />
-            <b>Active?&nbsp;&nbsp;</b>
-            <%= @patient.active ? "Yes" : "No" %> <br />
-            <b>Bottles in Fridge:&nbsp;&nbsp;</b><%= Bottle.for_patient(@patient).for_location("Fridge").count%><br>
-            <b>Bottles in Freezer:&nbsp;&nbsp;</b><%= Bottle.for_patient(@patient).for_location("Freezer").count%><br>
+            <b>Bottles in Fridge:&nbsp;&nbsp;</b><%= Bottle.for_patient(@patient).for_location("Fridge").count%>
+            &nbsp;&nbsp; 
+            <% if Bottle.for_patient(@patient).expired.for_location("Fridge").count > 0%>
+                <b>Expired:&nbsp;&nbsp;<%= Bottle.for_patient(@patient).expired.for_location("Fridge").count %></b>
+            <%end%>
+            <br>
+            <b>Bottles in Freezer:&nbsp;&nbsp;</b><%= Bottle.for_patient(@patient).for_location("Freezer").count%>
+            &nbsp;&nbsp; 
+            <% if Bottle.for_patient(@patient).expired.for_location("Freezer").count > 0%>
+                <b>Expired:&nbsp;&nbsp;<%= Bottle.for_patient(@patient).expired.for_location("Freezer").count %></b>
+            <%end%>
+            <br><br>
+            <div>
+
+                <% if @patient.admitted%>
+
+                <%= button_to discharge_patient_path(@patient), method: :patch, data: {confirm: "Are you sure you want to discharge #{@patient.proper_name}?"},class: 'waves-effect waves-light btn' do %>
+                            &nbsp;<%= "Discharge" %>
+                        <% end %>
+                        &nbsp;&nbsp;&nbsp;&nbsp; 
+                <% else %>
+                <%= link_to new_visit_path(:patient_id => @patient.id),  class: 'waves-effect waves-light btn' do %>
+                            &nbsp;<%= "Admit" %>
+                        <% end %>
+                        &nbsp;&nbsp;&nbsp;&nbsp; 
+                <% end %>
+                </div>
         </div>
+        
 </div>
 

@@ -3,7 +3,7 @@
 
 <div class="row">
   <div class="column">
-    <div class="card">
+    <div class="verify-card">
         <div class="on-the-left" >
         <h5 class="thick"><%= "Patient Name: #{@patient.proper_name}" %></h5>
         <h6><%= "Patient MRN: #{@patient.get_mrn}" %></h6>
@@ -19,7 +19,7 @@
     </div>
   </div>
   <div class="column">
-    <div class="card">
+    <div class="verify-card">
         <%= image_tag 'verification/success.jpeg' %>
                 <h5><%= "Match Verified!" %></h5><br />
     </div>

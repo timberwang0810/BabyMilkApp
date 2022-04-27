@@ -302,6 +302,29 @@ input[type=text].search {
   font-weight: bold;
 }
 
+#greenbox {
+  background-color: #cfc ;
+  margin: 5px;
+  margin-right: 20px;
+  padding: 10px ;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  border: 1px solid green ;
+  float: right;
+  height: auto;
+}
+#redbox {
+  background-color: rgb(255, 142, 142) ;
+  margin: 5px;
+  margin-right: 20px;
+  padding: 10px ;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  border: 1px solid red;
+  float: right;
+  height: auto;
+}
+
 
 
 
