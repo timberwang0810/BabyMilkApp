@@ -28,6 +28,7 @@ class Bottle < ApplicationRecord
   scope :by_administration, -> { order('administration_date')}
   scope :by_expiration, -> { order('expiration_date')}
   scope :expired, -> {where("expiration_date < ?", DateTime.now)}
+  scope :expiring_by_date, -> (time) {where("expiration_date < ? AND expiration_date > ?", time, DateTime.now)}
 
   #callbacks
   #before_save

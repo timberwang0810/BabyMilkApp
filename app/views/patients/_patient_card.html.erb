@@ -16,15 +16,23 @@
             <b>Date of Birth:&nbsp;&nbsp;</b><%= @patient.dob%><br>
             <b>Age:&nbsp;&nbsp;</b><%= @patient.get_age%><br>
             <b>Bottles in Fridge:&nbsp;&nbsp;</b><%= Bottle.for_patient(@patient).for_location("Fridge").count%>
-            &nbsp;&nbsp; 
             <% if Bottle.for_patient(@patient).expired.for_location("Fridge").count > 0%>
-                <b>Expired:&nbsp;&nbsp;<%= Bottle.for_patient(@patient).expired.for_location("Fridge").count %></b>
+                &nbsp;&nbsp; 
+                <b style="color:red;">Expired:&nbsp;&nbsp;<%= Bottle.for_patient(@patient).expired.for_location("Fridge").count %></b>
+            <%end%>
+            <% if Bottle.for_patient(@patient).expiring_by_date(DateTime.now.prev_day(1)).for_location("Fridge").count > 0%>
+                &nbsp;&nbsp; 
+                <b style="color:orange;">Expiring in 1 day or less:&nbsp;&nbsp;<%= Bottle.for_patient(@patient).expiring_by_date(DateTime.now.next_day(1)).for_location("Fridge").count %></b>
             <%end%>
             <br>
             <b>Bottles in Freezer:&nbsp;&nbsp;</b><%= Bottle.for_patient(@patient).for_location("Freezer").count%>
-            &nbsp;&nbsp; 
             <% if Bottle.for_patient(@patient).expired.for_location("Freezer").count > 0%>
-                <b>Expired:&nbsp;&nbsp;<%= Bottle.for_patient(@patient).expired.for_location("Freezer").count %></b>
+                &nbsp;&nbsp; 
+                <b style="color:red;">Expired:&nbsp;&nbsp;<%= Bottle.for_patient(@patient).expired.for_location("Freezer").count %></b>
+            <%end%>
+            <% if Bottle.for_patient(@patient).expiring_by_date(DateTime.now.prev_day(7)).for_location("Freezer").count > 0%>
+                &nbsp;&nbsp; 
+                <b style="color:orange;">Expiring in 1 week or less:&nbsp;&nbsp;<%= Bottle.for_patient(@patient).expiring_by_date(DateTime.now.next_day(7)).for_location("Freezer").count %></b>
             <%end%>
             <br><br>
             <div>
@@ -41,7 +49,13 @@
                         <% end %>
                         &nbsp;&nbsp;&nbsp;&nbsp; 
                 <% end %>
+                <div>
+                <% if can? :create, Bottle %>
+                    <%= link_to "Add a New bottle", new_bottle_path, class: 'waves-effect waves-light btn' %> 
+                <%end%>
                 </div>
+                </div>
+                
         </div>
         
 </div>

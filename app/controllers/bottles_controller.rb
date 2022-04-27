@@ -8,6 +8,8 @@ class BottlesController < ApplicationController
     def new
         authorize! :new, @bottle
         @bottle = Bottle.new
+        puts params
+        # @bottle.patient = Patient.find(params[:patient_id])
     end
 
     def create

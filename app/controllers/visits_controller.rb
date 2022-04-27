@@ -13,6 +13,7 @@ class VisitsController < ApplicationController
 
     def new
         @visit = Visit.new
+        puts params
         @visit.patient = Patient.find(params[:patient_id])
         @visit.admission_date = Date.current
     end
