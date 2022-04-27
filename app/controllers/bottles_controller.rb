@@ -36,14 +36,12 @@ class BottlesController < ApplicationController
     end
 
     def edit
-        authorize! :update, @bottle
     end
 
     def show  
     end
 
     def update
-        authorize! :update, @bottle
         if params[:other][:confirm]
             @bottle.storage_location = @bottle.storage_location.downcase == "fridge" ? "Freezer" : "Fridge"
             @bottle.save
@@ -53,7 +51,6 @@ class BottlesController < ApplicationController
     end
 
     def destroy
-        authorize! :destroy, @bottle
         @bottle.destroy
         flash[:notice] = "Removed bottle from the system"
         redirect_to bottles_url, notice: flash[:notice]
