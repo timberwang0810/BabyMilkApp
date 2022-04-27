@@ -21,8 +21,8 @@
       <tr>
         <td><%= link_to "#{bottle.id}", bottle_path(bottle) %></td>
         <td><%= "#{bottle.patient.proper_name}"%></td>
-        <td><%= "#{bottle.collected_date}"%></td>
-        <td><%= "#{bottle.expiration_date}"%></td>
+        <td><%= "#{bottle.collected_date.strftime("%Y/%m/%d %I:%M %p")}"%></td>
+        <td><%= "#{bottle.expiration_date.strftime("%Y/%m/%d %I:%M %p")}"%></td>
         <% if can? :edit, Bottle %>
         <td class="align_center">
           <%= link_to edit_bottle_path(bottle) do %>

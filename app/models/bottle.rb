@@ -10,9 +10,6 @@ class Bottle < ApplicationRecord
   attr_accessor :qr_image
 
   belongs_to :patient
-  #belongs_to :user
-  #belongs_to :checkin_nurse_id
-  #belongs_to :checkout_nurse_id
 
   validates_presence_of :collected_date, :storage_location, :message => "Please enter something"
   #validates_datetime :administration_date, on_or_after: :collected_date

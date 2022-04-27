@@ -7,8 +7,10 @@ class Verification
     validates :bottle_id, presence: true
 
     def verify
-        @patient = Patient.find(patient_id)
-        @bottle = Bottle.find(bottle_id)
+        # @patient = Patient.find(patient_id)
+        # @bottle = Bottle.find(bottle_id)
+        @bottle = Bottle.find(Bottle.get_bottle_id(bottle_id))
+        @patient = Patient.where(patient_mrn: Patient.get_encrypted_mrn(patient_id)).first
         if @patient.id == @bottle.patient.id
             return true
         else
@@ -17,7 +19,7 @@ class Verification
     end
 
     def expired
-        @bottle = Bottle.find(bottle_id)
+        @bottle = Bottle.find(Bottle.get_bottle_id(bottle_id))
         if @bottle.expiration_date < DateTime.now
             return true
         else
