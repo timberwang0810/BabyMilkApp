@@ -3,10 +3,10 @@ class UsersController < ApplicationController
     before_action :check_login
     authorize_resource
 
-    # def index
-    #     # finding all the active users and paginating that list (will_paginate)
-    #     @users = User.all.paginate(page: params[:page]).per_page(15)
-    # end
+    def index
+        # finding all the active users and paginating that list (will_paginate)
+        @users = User.all.paginate(page: params[:page]).per_page(15)
+    end
 
     def new
         @user = User.new

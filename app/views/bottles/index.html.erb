@@ -17,19 +17,21 @@
     </thead>
     <% for bottle in @active_bottles %>
       <tr>
-        <td><%= "#{bottle.id}"%></td>
+        <td><%= link_to "#{bottle.id}", bottle_path(bottle) %></td>
         <td><%= "#{bottle.patient.proper_name}"%></td>
         <td><%= "#{bottle.collected_date}"%></td>
         <td><%= "#{bottle.expiration_date}"%></td>
+    
         <td class="align_center">
           <%= link_to edit_bottle_path(bottle) do %>
               <i class="material-icons">edit</i>
           <% end %>
           &nbsp;&nbsp;&nbsp;&nbsp; 
-          <%= link_to(bottle_path(bottle), method: :delete, data: { confirm: 'Are you sure you wish to delete this information?' }) do %>
+          <%= link_to(bottle_path(bottle), method: :delete, data: { confirm: 'Are you sure you wish to discharge this bottle without verification?' }) do %>
               <i class="material-icons">delete</i>
           <% end %>
         </td>
+        
       </tr>
     <% end %>
   </table>
@@ -37,10 +39,11 @@
   <%= will_paginate @active_bottles, previous_label: "Previous&nbsp;", next_label: "&nbsp;Next" %>
 <% end %>
 <p>&nbsp;</p>
-
+<% if can? :create, Bottle %>
 <p><strong>
 <%= link_to "Add a New bottle", new_bottle_path, class: 'waves-effect waves-light btn' %> 
 </strong></p>
+<%end%>
 
     </div>
 </div>

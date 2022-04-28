@@ -1,5 +1,7 @@
 
-<%= form_for @verifier do |f| %>
+<%= simple_form_for(@verifier) do |f| %>
+        <%= f.error_notification %>
+
 
   <%= f.label :bottle_id, required: true %>
   <%= f.text_field :bottle_id, required: true %>
@@ -7,5 +9,7 @@
   <%= f.label :patient_id, required: true %>
   <%= f.text_field :patient_id, required: true %>
 
-  <%= f.button :submit %>
+   <div class="waves-effect waves-light btn" >
+            <%= f.button :submit, "verify" %>
+  </div>
 <% end %>

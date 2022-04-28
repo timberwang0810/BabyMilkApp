@@ -1,6 +1,6 @@
 class BottlesController < ApplicationController
     before_action :set_bottle, only: [:show, :edit, :update, :destroy]
-    #before_action :check_login
+    before_action :check_login
     def index
         @active_bottles = Bottle.active.by_patient.paginate(page: params[:page]).per_page(15)
     end
@@ -17,7 +17,6 @@ class BottlesController < ApplicationController
         amount.times do 
             @bottle = Bottle.new(create_params)
             puts @bottle.collected_date
-            puts @bottle.save!
             if !@bottle.save 
                 render action: 'new'
                 return
@@ -37,14 +36,12 @@ class BottlesController < ApplicationController
     end
 
     def edit
-        authorize! :update, @bottle
     end
 
     def show  
     end
 
     def update
-        authorize! :update, @bottle
         if params[:other][:confirm]
             @bottle.storage_location = @bottle.storage_location.downcase == "fridge" ? "Freezer" : "Fridge"
             @bottle.save
@@ -54,7 +51,6 @@ class BottlesController < ApplicationController
     end
 
     def destroy
-        authorize! :destroy, @bottle
         @bottle.destroy
         flash[:notice] = "Removed bottle from the system"
         redirect_to bottles_url, notice: flash[:notice]

@@ -1,8 +1,8 @@
-<div class="card">    
-  <div class="card-content">
-   
+<%= stylesheet_link_tag "verification" %>
+<% if isNew %>
+  <div class="card">    
+    <div class="card-content">
       <div class="row">
-        <% if isNew %>
           <%= simple_form_for(@bottle) do |f| %>
           <%= f.error_notification %>
           <div class="row">
@@ -27,30 +27,38 @@
           </div>
     
           <% end %>
-        <% else %>
-            <%= simple_form_for :other, url: url_for(action: 'update', controller: 'bottles', id: @bottle.id), method: 'patch' do |f| %>
-            <%= f.error_notification %>
-            <div class="row">
-                <div class="form-inputs">
-                  <%= f.input :confirm, as: :radio_buttons, collection: [[true,'Yes'],[false, 'No']], label_method: :second, value_method: :first, required: true %>
-                </div>
-            </div>
-            <div class="row">
-                <div class="waves-effect waves-light btn" >
-                <%= f.button :submit, "Confirm" %>
-                </div>
-            </div>
-      
-            <% end %>
-        <% end %>
 
       </div>
   </div>
 </div>
+<% else %>
+    <div class="row">
+        <div class="column">
+          <%= render "bottle_card", bottle: @bottle %>
+        </div>
   
-  <div class="row">
-    <div class="form-actions col s7">
-    </div>
-  </div>
+        <div class="column">     
+          <div class="card">    
+            <div class="card-content">
+                  <%= simple_form_for :other, url: url_for(action: 'update', controller: 'bottles', id: @bottle.id), method: 'patch' do |f| %>
+                    <%= f.error_notification %>
+                    <div class="row">
+                        <div class="form-inputs">
+                          <%= f.input :confirm, as: :radio_buttons, collection: [[true,'Yes'],[false, 'No']], label_method: :second, value_method: :first, required: true %>
+                        </div>
+                    </div>
+                    <br/>
+                    <div class="row">
+                        <div class="waves-effect waves-light btn" >
+                        <%= f.button :submit, "Confirm" %>
+                        </div>
+                    </div>
+                  <%end%> 
+              </div>
+            </div>
+        </div>
+       </div>
+    <%end%>
 
 
+            
