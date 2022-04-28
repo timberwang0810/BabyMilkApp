@@ -17,6 +17,7 @@ Rails.application.routes.draw do
   get 'scanbottle/edit', to: 'scanbottle#edit', as: :scan_bottle_edit
 
   resources :sessions
+  resources :users
   get 'user/edit' => 'users#edit', :as => :edit_current_user
   get 'signup' => 'users#new', :as => :signup
   get 'users' => 'users#index', :as => :user_index

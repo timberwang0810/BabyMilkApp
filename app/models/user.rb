@@ -26,6 +26,7 @@ class User < ApplicationRecord
 
     
     ROLES = [['Admin', :admin],['Nurse', :nurse]]
+    NURSEROLE = [['Nurse', :nurse]]
 
     def role?(authorized_role)
         return false if role.nil?

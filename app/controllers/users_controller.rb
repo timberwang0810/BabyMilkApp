@@ -14,6 +14,7 @@ class UsersController < ApplicationController
 
     def edit
         @user.role = "nurse" if current_user.role?(:nurse)
+        render action: 'edit'
     end
 
     def create
@@ -22,7 +23,7 @@ class UsersController < ApplicationController
         if  @user.save
             flash[:notice] = "Successfully added #{@user.proper_name} as a user."
             #session[:user_id] = @user.id
-            redirect_to users_url
+            redirect_to @users
         else
             render action: 'new'
         end
