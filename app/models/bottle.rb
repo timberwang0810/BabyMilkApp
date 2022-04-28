@@ -11,7 +11,7 @@ class Bottle < ApplicationRecord
 
   belongs_to :patient
 
-  validates_presence_of :collected_date, :storage_location, :message => "Please enter something"
+  validates_presence_of :collected_date, :storage_location, :message => "Required field!"
   #validates_datetime :administration_date, on_or_after: :collected_date
   #add validations for different types of expiration dates
   #validates_datetime :expiration_date, after: :collected_date 
@@ -39,6 +39,10 @@ class Bottle < ApplicationRecord
 
   def get_qr_image
     "/assets/qr/#{encrypt(@@cipher_key, self.id.to_s)}.png"
+  end
+
+  def get_qr_path
+    "./app/assets/images/qr/#{encrypt(@@cipher_key, self.id.to_s)}.png"
   end
 
   class << self
@@ -146,8 +150,8 @@ class Bottle < ApplicationRecord
         File.open "./app/assets/images/qr/#{encrypted}.png", 'wb' do |f| # change file name for PNG images
             f.write rendered_zpl
         end
-        print_job = Zebra::PrintJob.new 'Zebra_Technologies_ZTC_GX420d'
-        print_job.print label, 'localhost'
+        # print_job = Zebra::PrintJob.new 'Zebra_Technologies_ZTC_GX420d'
+        # print_job.print label, 'localhost'
     end
 
 

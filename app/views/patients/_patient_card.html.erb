@@ -20,7 +20,7 @@
                 &nbsp;&nbsp; 
                 <b style="color:red;">Expired:&nbsp;&nbsp;<%= Bottle.for_patient(@patient).expired.for_location("Fridge").count %></b>
             <%end%>
-            <% if Bottle.for_patient(@patient).expiring_by_date(DateTime.now.prev_day(1)).for_location("Fridge").count > 0%>
+            <% if Bottle.for_patient(@patient).expiring_by_date(DateTime.now.next_day(1)).for_location("Fridge").count > 0%>
                 &nbsp;&nbsp; 
                 <b style="color:orange;">Expiring in 1 day or less:&nbsp;&nbsp;<%= Bottle.for_patient(@patient).expiring_by_date(DateTime.now.next_day(1)).for_location("Fridge").count %></b>
             <%end%>
@@ -30,7 +30,7 @@
                 &nbsp;&nbsp; 
                 <b style="color:red;">Expired:&nbsp;&nbsp;<%= Bottle.for_patient(@patient).expired.for_location("Freezer").count %></b>
             <%end%>
-            <% if Bottle.for_patient(@patient).expiring_by_date(DateTime.now.prev_day(7)).for_location("Freezer").count > 0%>
+            <% if Bottle.for_patient(@patient).expiring_by_date(DateTime.now.next_day(7)).for_location("Freezer").count > 0%>
                 &nbsp;&nbsp; 
                 <b style="color:orange;">Expiring in 1 week or less:&nbsp;&nbsp;<%= Bottle.for_patient(@patient).expiring_by_date(DateTime.now.next_day(7)).for_location("Freezer").count %></b>
             <%end%>
@@ -51,7 +51,7 @@
                 <% end %>
                 <div>
                 <% if can? :create, Bottle %>
-                    <%= link_to "Add a New bottle", new_bottle_path, class: 'waves-effect waves-light btn' %> 
+                    <%= link_to "Add a New bottle", new_bottle_path(:patient_id => @patient.id), class: 'waves-effect waves-light btn' %> 
                 <%end%>
                 </div>
                 </div>
