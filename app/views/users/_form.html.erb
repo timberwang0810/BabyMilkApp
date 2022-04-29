@@ -37,10 +37,6 @@
     <%= f.select :role, User::ROLES, :prompt => "Select ..." %>
   </p>
   <% end %>
-<<<<<<< HEAD
 	
   <p class="waves-effect waves-light btn"><%= f.submit (@user.new_record? ? "Sign up" : "Update") %></p>
-=======
-  <p><%= f.submit (@user.new_record? ? "Sign up" : "Update") %></p>
->>>>>>> 5fc21f58a2ac0f5f0babd3b66fb569ecc312e1b9
 <% end %>
