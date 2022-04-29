@@ -36,12 +36,7 @@
     <%= f.label :role %><br />
     <%= f.select :role, User::ROLES, :prompt => "Select ..." %>
   </p>
-  <%else%>
-  <p>
-    <%= f.label :role %><br />
-    <%= f.select :role, User::NURSEROLE, :prompt => "Select ..." %>
-  </p>
-  <%end%>
+  <% end %>
 	
   <p class="waves-effect waves-light btn"><%= f.submit (@user.new_record? ? "Sign up" : "Update") %></p>
 <% end %>
