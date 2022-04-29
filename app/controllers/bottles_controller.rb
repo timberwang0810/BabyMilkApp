@@ -8,15 +8,20 @@ class BottlesController < ApplicationController
     def new
         authorize! :new, @bottle
         @bottle = Bottle.new
+        puts params
+        @bottle.patient = Patient.find(params[:patient_id])
     end
 
     def create
         authorize! :create, @bottle
         puts params[:other][:amount]
-        amount = params[:other][:amount].to_i
-        amount.times do 
+        amount = params[:other][:amount]
+        if amount == ""
+            render action: 'new'
+            return
+        end
+        (amount.to_i).times do 
             @bottle = Bottle.new(create_params)
-            puts @bottle.collected_date
             if !@bottle.save 
                 render action: 'new'
                 return
@@ -39,6 +44,7 @@ class BottlesController < ApplicationController
     end
 
     def show  
+        
     end
 
     def update
@@ -51,6 +57,10 @@ class BottlesController < ApplicationController
     end
 
     def destroy
+        authorize! :destroy, @bottle
+        path = @bottle.get_qr_path
+        puts path
+        File.delete(path) if File.exist?(path)
         @bottle.destroy
         flash[:notice] = "Removed bottle from the system"
         redirect_to bottles_url, notice: flash[:notice]

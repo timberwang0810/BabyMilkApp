@@ -36,20 +36,35 @@ class Patient < ApplicationRecord
         puts self.patient_mrn
         decrypt(@@cipher_key, self.patient_mrn)
     end
+
     def get_current_visit
         if !self.admitted?
             return nil 
         end
         self.visits.select{|v| v.is_active?}.first
     end
-    private
-    def encrypt(key, str)
-        cipher = OpenSSL::Cipher.new('DES-EDE3-CBC').encrypt
-        cipher.key = key
-        s = cipher.update(str) + cipher.final
-        s.unpack('H*')[0].upcase
+    class << self
+        def get_encrypted_mrn(mrn)
+            encrypt(@@cipher_key, mrn)
+        end
+        private 
+
+        def encrypt(key, str)
+            cipher = OpenSSL::Cipher.new('DES-EDE3-CBC').encrypt
+            cipher.key = key
+            s = cipher.update(str) + cipher.final
+            s.unpack('H*')[0].upcase
+        end
     end
 
+    private
+
+    def encrypt(key, str)
+            cipher = OpenSSL::Cipher.new('DES-EDE3-CBC').encrypt
+            cipher.key = key
+            s = cipher.update(str) + cipher.final
+            s.unpack('H*')[0].upcase
+    end
     def decrypt(key, str)
         cipher = OpenSSL::Cipher.new('DES-EDE3-CBC').decrypt
         cipher.key = key

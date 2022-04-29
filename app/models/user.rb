@@ -1,8 +1,6 @@
 class User < ApplicationRecord
     has_secure_password
     
-    #has_many :bottles
-
     validates_presence_of :first_name, :last_name 
     validates :username, presence: true, uniqueness: { case_sensitive: false }
     validates_presence_of :password, :on => :create 

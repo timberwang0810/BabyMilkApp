@@ -10,11 +10,8 @@ class Bottle < ApplicationRecord
   attr_accessor :qr_image
 
   belongs_to :patient
-  #belongs_to :user
-  #belongs_to :checkin_nurse_id
-  #belongs_to :checkout_nurse_id
 
-  validates_presence_of :collected_date, :storage_location, :message => "Please enter something"
+  validates_presence_of :collected_date, :storage_location, :message => "Required field!"
   #validates_datetime :administration_date, on_or_after: :collected_date
   #add validations for different types of expiration dates
   #validates_datetime :expiration_date, after: :collected_date 
@@ -30,6 +27,8 @@ class Bottle < ApplicationRecord
   scope :by_collection, -> { order('collected_date')}
   scope :by_administration, -> { order('administration_date')}
   scope :by_expiration, -> { order('expiration_date')}
+  scope :expired, -> {where("expiration_date < ?", DateTime.now)}
+  scope :expiring_by_date, -> (time) {where("expiration_date < ? AND expiration_date > ?", time, DateTime.now)}
 
   #callbacks
   #before_save
@@ -40,6 +39,10 @@ class Bottle < ApplicationRecord
 
   def get_qr_image
     "/assets/qr/#{encrypt(@@cipher_key, self.id.to_s)}.png"
+  end
+
+  def get_qr_path
+    "./app/assets/images/qr/#{encrypt(@@cipher_key, self.id.to_s)}.png"
   end
 
   class << self

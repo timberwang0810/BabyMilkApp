@@ -7,8 +7,9 @@ class VerificationsController < ApplicationController
 
     def create
         @verifier = Verification.new(verification_params)
-        @bottle = Bottle.find(@verifier.bottle_id)
-        @patient = Patient.find(@verifier.patient_id)
+        @bottle = Bottle.find(Bottle.get_bottle_id(@verifier.bottle_id))
+        @patient = Visit.where(account_number: @verifier.patient_id).first.patient
+        # @patient = Patient.find(@verifier.patient_id)
         if @verifier.verify && !@verifier.expired
           redirect_to success_path(@patient, @bottle)
         elsif @verifier.verify && @verifier.expired

@@ -2,23 +2,11 @@
      <div class="col s6">
       <%= render "patient_card" %>
     </div>
+      <% if not @expired_bottles.empty?%>
+        <%= render "expire_bottle" %>
+      <% end %>
 </div>
 <div>
   <%= render :partial => "partials/object", locals: {model_name: "patient", object: @patient} %>
 </div>
 &nbsp;&nbsp; 
-<div>
-
-<% if @patient.admitted%>
-
-  <%= button_to discharge_patient_path(@patient), method: :patch, data: {confirm: "Are you sure you want to discharge #{@patient.proper_name}?"},class: 'waves-effect waves-light btn' do %>
-             &nbsp;<%= "Discharge" %>
-          <% end %>
-          &nbsp;&nbsp;&nbsp;&nbsp; 
-<% else %>
-<%= link_to new_visit_path(:patient_id => @patient.id),  class: 'waves-effect waves-light btn' do %>
-             &nbsp;<%= "Admit" %>
-          <% end %>
-          &nbsp;&nbsp;&nbsp;&nbsp; 
-<% end %>
-</div>
