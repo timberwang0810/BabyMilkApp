@@ -1,6 +1,6 @@
 class VerificationsController < ApplicationController
     before_action :set_verification, only: [:success, :failed, :expired]
-  
+    before_action :check_login  
     def new
       @verifier = Verification.new
     end

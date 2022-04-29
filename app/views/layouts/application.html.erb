@@ -20,8 +20,9 @@
         <div class="right align">
           <i class="material-icons">person</i>
         </div>
-        <%= link_to 'Logout', logout_path, class:'right'%>
-        
+        <div class="right align">
+        <%="Welcome, #{current_user.proper_name} | "%><%=link_to "Logout", logout_path%>
+        </div>
       <% else %>
         <div class="right align">
         <i class="material-icons">person</i>
@@ -30,6 +31,7 @@
         
       <% end %>
 		</div>
+  
     <br>
     <div class="container">
       <div class="row">

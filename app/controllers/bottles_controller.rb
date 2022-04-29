@@ -1,6 +1,6 @@
 class BottlesController < ApplicationController
     before_action :set_bottle, only: [:show, :edit, :update, :destroy]
-    #before_action :check_login
+    before_action :check_login
     def index
         @active_bottles = Bottle.active.by_patient.paginate(page: params[:page]).per_page(15)
     end
@@ -41,7 +41,6 @@ class BottlesController < ApplicationController
     end
 
     def edit
-        authorize! :update, @bottle
     end
 
     def show  
@@ -49,7 +48,6 @@ class BottlesController < ApplicationController
     end
 
     def update
-        authorize! :update, @bottle
         if params[:other][:confirm]
             @bottle.storage_location = @bottle.storage_location.downcase == "fridge" ? "Freezer" : "Fridge"
             @bottle.save
