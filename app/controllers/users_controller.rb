@@ -14,7 +14,6 @@ class UsersController < ApplicationController
 
     def edit
         @user.role = "nurse" if current_user.role?(:nurse)
-        render action: 'edit'
     end
 
     def create
