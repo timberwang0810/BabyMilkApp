@@ -45,6 +45,7 @@ class BottlesController < ApplicationController
     end
 
     def show  
+        
     end
 
     def update

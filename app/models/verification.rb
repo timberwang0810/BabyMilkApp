@@ -10,7 +10,7 @@ class Verification
         # @patient = Patient.find(patient_id)
         # @bottle = Bottle.find(bottle_id)
         @bottle = Bottle.find(Bottle.get_bottle_id(bottle_id))
-        @patient = Patient.where(patient_mrn: Patient.get_encrypted_mrn(patient_id)).first
+        @patient = Visit.where(account_number: patient_id).first.patient
         if @patient.id == @bottle.patient.id
             return true
         else

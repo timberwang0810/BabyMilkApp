@@ -2,6 +2,9 @@
      <div class="col s6">
       <%= render "patient_card" %>
     </div>
+      <% if not @expired_bottles.empty?%>
+        <%= render "expire_bottle" %>
+      <% end %>
 </div>
 <div>
   <%= render :partial => "partials/object", locals: {model_name: "patient", object: @patient} %>

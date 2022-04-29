@@ -150,8 +150,8 @@ class Bottle < ApplicationRecord
         File.open "./app/assets/images/qr/#{encrypted}.png", 'wb' do |f| # change file name for PNG images
             f.write rendered_zpl
         end
-        # print_job = Zebra::PrintJob.new 'Zebra_Technologies_ZTC_GX420d'
-        # print_job.print label, 'localhost'
+        print_job = Zebra::PrintJob.new 'Zebra_Technologies_ZTC_GX420d'
+        print_job.print label, 'localhost'
     end
 
 
