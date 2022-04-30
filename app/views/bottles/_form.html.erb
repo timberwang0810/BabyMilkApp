@@ -40,7 +40,7 @@
         <div class="column">     
           <div class="card">    
             <div class="card-content">
-                  <%= simple_form_for :other, url: url_for(action: 'update', controller: 'bottles', id: @bottle.id), method: 'patch' do |f| %>
+                  <%= simple_form_for :other, url: url_for(action: scan_action, controller: 'bottles', id: @bottle.id), method: scan_method do |f| %>
                     <%= f.error_notification %>
                     <div class="row">
                         <div class="form-inputs">

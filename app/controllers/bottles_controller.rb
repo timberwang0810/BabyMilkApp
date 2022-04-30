@@ -1,5 +1,5 @@
 class BottlesController < ApplicationController
-    before_action :set_bottle, only: [:show, :edit, :update, :destroy]
+    before_action :set_bottle, only: [:show, :edit, :update, :delete, :destroy]
     before_action :check_login
     def index
         @active_bottles = Bottle.active.by_patient.paginate(page: params[:page]).per_page(15)
@@ -48,7 +48,7 @@ class BottlesController < ApplicationController
     end
 
     def update
-        if params[:other][:confirm]
+        if ActiveModel::Type::Boolean.new.cast(params[:other][:confirm])
             @bottle.storage_location = @bottle.storage_location.downcase == "fridge" ? "Freezer" : "Fridge"
             @bottle.save
             flash[:notice] = "Updated storage location on bottle"
@@ -56,14 +56,25 @@ class BottlesController < ApplicationController
         redirect_to patient_path(@bottle.patient)
     end
 
+    def delete 
+    end 
+
     def destroy
         authorize! :destroy, @bottle
-        path = @bottle.get_qr_path
-        puts path
-        File.delete(path) if File.exist?(path)
-        @bottle.destroy
-        flash[:notice] = "Removed bottle from the system"
-        redirect_to bottles_url, notice: flash[:notice]
+        if ActiveModel::Type::Boolean.new.cast(params[:other][:confirm])
+            puts "HAOHIODOEHIOFHIEOHIOH"
+            path = @bottle.get_qr_path
+            puts path
+            File.delete(path) if File.exist?(path)
+            @patient = @bottle.patient
+            @bottle.destroy
+            flash[:notice] = "Removed bottle for #{@patient.proper_name} from the system"
+            redirect_to patient_path(@patient), notice: flash[:notice]
+        else 
+            flash[:notice] = "Deletion cancelled."
+            redirect_to patient_path(@bottle.patient), notice: flash[:notice]
+        end
+        
     end
 
     

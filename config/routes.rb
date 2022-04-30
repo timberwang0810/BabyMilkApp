@@ -3,6 +3,8 @@ Rails.application.routes.draw do
   get 'home', to: 'home#index', as: :home
   
   resources :bottles
+  get 'bottles/:id/delete', to: 'bottles#delete', as: :delete_bottle
+
   resources :visits
   resources :patients
   resources :users
@@ -15,6 +17,8 @@ Rails.application.routes.draw do
   
   patch 'scanbottle/update', to: 'scanbottle#update', as: :scan_bottle_update
   get 'scanbottle/edit', to: 'scanbottle#edit', as: :scan_bottle_edit
+  get 'scanbottle/delete', to: 'scanbottle#delete', as: :scan_bottle_delete
+  delete 'scanbottle/destroy', to: 'scanbottle#destroy', as: :scan_bottle_destroy
 
   resources :sessions
   resources :users

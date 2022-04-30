@@ -2,7 +2,7 @@
   <div class="card-content">
    
       <div class="row">
-        <%= simple_form_for :other, url: url_for(action: 'update', :controller => 'scanbottle'), :method => 'patch' do |f| %>
+        <%= simple_form_for :other, url: url_for(action: scan_action, :controller => 'scanbottle'), :method => scan_method do |f| %>
         <%= f.error_notification %>
         <div class="row">
             <div class="form-inputs">
