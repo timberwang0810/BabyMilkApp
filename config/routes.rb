@@ -4,6 +4,7 @@ Rails.application.routes.draw do
   
   resources :bottles
   get 'bottles/:id/delete', to: 'bottles#delete', as: :delete_bottle
+  post 'bottles/:id/reprint', to: 'bottles#reprint', as: :reprint_bottle
 
   resources :visits
   resources :patients

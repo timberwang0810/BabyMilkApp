@@ -1,5 +1,5 @@
 class BottlesController < ApplicationController
-    before_action :set_bottle, only: [:show, :edit, :update, :delete, :destroy]
+    before_action :set_bottle, only: [:show, :edit, :update, :delete, :destroy, :reprint]
     before_action :check_login
     def index
         @active_bottles = Bottle.active.by_patient.paginate(page: params[:page]).per_page(15)
@@ -52,8 +52,10 @@ class BottlesController < ApplicationController
             @bottle.storage_location = @bottle.storage_location.downcase == "fridge" ? "Freezer" : "Fridge"
             @bottle.save
             flash[:notice] = "Updated storage location on bottle"
+            redirect_to patient_path(@bottle.patient), notice: flash[notice]
+        else 
+            redirect_to patient_path(@bottle.patient)
         end
-        redirect_to patient_path(@bottle.patient)
     end
 
     def delete 
@@ -62,7 +64,6 @@ class BottlesController < ApplicationController
     def destroy
         authorize! :destroy, @bottle
         if ActiveModel::Type::Boolean.new.cast(params[:other][:confirm])
-            puts "HAOHIODOEHIOFHIEOHIOH"
             path = @bottle.get_qr_path
             puts path
             File.delete(path) if File.exist?(path)
@@ -75,6 +76,11 @@ class BottlesController < ApplicationController
             redirect_to patient_path(@bottle.patient), notice: flash[:notice]
         end
         
+    end
+
+    def reprint
+        @bottle.print_qr
+        redirect_to bottle_path(@bottle)
     end
 
     

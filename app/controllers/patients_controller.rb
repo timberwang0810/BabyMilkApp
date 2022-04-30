@@ -8,6 +8,7 @@ class PatientsController < ApplicationController
 
     def show 
         #@recent_visits = @pet.visits.by_admission.last(10).to_a 
+        @all_bottles = Bottle.for_patient(@patient).paginate(page: params[:all_bottles_page]).per_page(5)
         @expired_bottles = Bottle.for_patient(@patient).expired.paginate(page: params[:expired_page]).per_page(5)
         @expiring_bottles_fridge = Bottle.for_patient(@patient).expiring_by_date(DateTime.now.next_day(1)).for_location("Fridge")
         @expiring_bottles_freezer = Bottle.for_patient(@patient).expiring_by_date(DateTime.now.next_day(7)).for_location("Freezer")

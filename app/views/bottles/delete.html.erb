@@ -1,8 +1,16 @@
 <div>
+<% if @bottle.expiration_date < DateTime.now %>
+<h5>This bottle is expired!</h5>
+<% else %>
 <h5>Hang on...</h5>
+<% end %>
 </div>
 <div>
+<% if @bottle.expiration_date < DateTime.now %>
+<h6>Confirm delete expired bottle with ID <%= "#{@bottle.id}"%>?</h6>
+<% else %>
 <h6>Do you wish to delete this bottle with ID <%= "#{@bottle.id}"%>? This bottle is not expired yet.</h6>
+<% end %>
 </div>
 <div class="container">
       <div class="row">
