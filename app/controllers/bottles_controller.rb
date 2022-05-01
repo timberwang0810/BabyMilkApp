@@ -2,7 +2,7 @@ class BottlesController < ApplicationController
     before_action :set_bottle, only: [:show, :edit, :update, :delete, :destroy, :reprint]
     before_action :check_login
     def index
-        @active_bottles = Bottle.active.by_patient.paginate(page: params[:page]).per_page(15)
+        @active_bottles = Bottle.active.by_patient.paginate(page: params[:page]).per_page(10)
     end
 
     def new
@@ -41,6 +41,7 @@ class BottlesController < ApplicationController
     end
 
     def edit
+        authorize! :edit, @bottle
     end
 
     def show  
@@ -48,6 +49,7 @@ class BottlesController < ApplicationController
     end
 
     def update
+        authorize! :update, @bottle
         if ActiveModel::Type::Boolean.new.cast(params[:other][:confirm])
             @bottle.storage_location = @bottle.storage_location.downcase == "fridge" ? "Freezer" : "Fridge"
             @bottle.save
@@ -59,6 +61,7 @@ class BottlesController < ApplicationController
     end
 
     def delete 
+        authorize! :destroy, @bottle
     end 
 
     def destroy

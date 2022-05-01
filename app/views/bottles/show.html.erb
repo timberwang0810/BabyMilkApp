@@ -4,5 +4,21 @@
     </div>
 </div>
 <div>
-  <%= render :partial => "partials/object", locals: {model_name: "bottle", object: @bottle} %>
+  <div class="form-actions">
+  <%= link_to("bottles_path", class: 'waves-effect waves-light btn') do %>
+    &nbsp;Display All Bottles
+  <% end %>
+  &nbsp;&nbsp;
+  
+  <% if can? :edit, Patient %>
+  <%= link_to(edit_bottle_path(@bottle), class: 'waves-effect waves-light btn') do %>
+      &nbsp;<%= "Edit Storage Location" %>
+  <% end %>
+  &nbsp;&nbsp;
+  
+  <%= link_to(delete_bottle_path(@bottle), class: 'waves-effect waves-light btn btn-alert') do %>
+      &nbsp;<%= "Delete Bottle" %>
+  <% end %>
+  <% end %>
+  </div>
 </div>
