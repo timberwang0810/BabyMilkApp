@@ -45,6 +45,12 @@ class Bottle < ApplicationRecord
     "./app/assets/images/qr/#{encrypt(@@cipher_key, self.id.to_s)}.png"
   end
 
+  def print_qr
+    label = create_label
+    print_job = Zebra::PrintJob.new 'Zebra_Technologies_ZTC_GX420d'
+    print_job.print label, 'localhost'
+  end 
+
   class << self
     def get_bottle_id(enc)
       decrypt(@@cipher_key, enc.to_s)
@@ -104,8 +110,8 @@ class Bottle < ApplicationRecord
         puts "\n#{name}:\n#{zpl}\n\n"
         zpl
     end
-    def generate_qr
-        encrypted = encrypt(@@cipher_key, self.id.to_s)
+    def create_label
+      encrypted = encrypt(@@cipher_key, self.id.to_s)
         label = Zebra::Zpl::Label.new(
             width:        900,
             length:       600,
@@ -141,11 +147,22 @@ class Bottle < ApplicationRecord
             font_size: 30,
             print_mode: "N"
         )
+        id_text = Zebra::Zpl::Text.new(
+            data: "#{self.id}",
+            position: [250,300],
+            font_size: 56,
+            print_mode: "N"
+        )
         label << qrcode
         label << name_text
         label << storage_text
         label << date_text
         label << time_text
+        label << id_text
+        return label
+    end 
+    def generate_qr
+        label = create_label
         rendered_zpl = Labelary::Label.render zpl: print_zpl_str('raw_zpl', label)
         File.open "./app/assets/images/qr/#{encrypted}.png", 'wb' do |f| # change file name for PNG images
             f.write rendered_zpl

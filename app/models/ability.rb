@@ -34,7 +34,10 @@ class Ability
     if user.role? :admin
       can :manage, :all
     elsif user.role? :nurse
-      can :read, :all
+      can :edit, Bottle
+      can :update, Bottle
+      can :destroy, Bottle
+      can :create, Visit
     else
       can :read, :all
     end

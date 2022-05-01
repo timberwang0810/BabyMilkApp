@@ -2,7 +2,7 @@
 <% if @active_patients.empty? %>
   <h4>There are no patients in the system at this time.</h4>
 <% else %>
-  <h4>Active Patients</h4>
+  <h4>All Patients</h4>
 <div class="row">
   <div class="col s9 center">
   <div class="card">
@@ -12,7 +12,8 @@
     <thead>
       <th>Name</th>
       <th>Date of Birth</th>
-      <th>age</th>
+      <th>Age</th>
+      <th>Admitted?</th>
       <% if can? :edit, Patient %>
       <th class="align_center">Options</th>
       <% end %>
@@ -21,8 +22,8 @@
       <tr>
         <td><%= link_to "#{patient.name}", patient_path(patient) %></td>
         <td><%= "#{patient.dob}"%></td>
-        <td><%= "#{patient.get_age}"%></td>
-
+        <td><%= "#{patient.get_age}"%></td>        
+        <td><%= patient.admitted ? "Y" : ""%></td>
         <% if can? :edit, Patient %>
           <td class="align_center">
             <%= link_to edit_patient_path(patient) do %>

@@ -1,14 +1,14 @@
 <div class="col s4">
     <div class="card">
     <div class="card-content">
-        <span class="card-title">Expired Bottles</span>
+        <span class="card-title">All Bottles for <%= @patient.proper_name %></span>
         <table class="striped highlight">
             <thead>
             <th>Bottle ID</th>
             <th>Expiration Date</th>
             <th>Location</th>
             </thead>
-            <% for bottle in @expired_bottles %>
+            <% for bottle in @all_bottles %>
             <tr>
                 <td><%= link_to bottle.id, bottle_path(bottle) %></td>
                 <td><%=bottle.expiration_date.strftime("%Y/%m/%d %I:%M %p")%></td>
@@ -16,13 +16,7 @@
             </tr>
             <% end %>
         </table>
-        <%= will_paginate @expired_bottles, param_name: 'expired_page', previous_label: "Previous&nbsp;", next_label: "&nbsp;Next" %>
-        <% if can? :destroy, Bottle %>
-        <p><strong>
-        <%= link_to "Delete bottles", scan_bottle_delete_path, class: 'waves-effect waves-light btn' %> 
-        </strong></p>
-        <% end %>
+        <%= will_paginate @all_bottles, param_name: 'all_bottles_page', previous_label: "Previous&nbsp;", next_label: "&nbsp;Next" %>
     </div>
     </div>
 </div>
-

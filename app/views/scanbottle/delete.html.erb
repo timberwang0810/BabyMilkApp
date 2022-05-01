@@ -1,11 +1,13 @@
 <div>
-<h5>Verify</h5>
+<h5>Scan Bottle to Delete Bottle</h5>
 </div>
+
+
 <div class="container">
       <div class="row">
         <div class="col s12">
           <p>&nbsp;</p>
-          <%= render 'form', verifier: @verifier, bottle: @bottle, patient: @patient%>
+          <%= render 'form', scan_action: "destroy", scan_method: "delete"%>
 
           <%= yield %>
 

@@ -2,12 +2,13 @@ class PatientsController < ApplicationController
     before_action :set_patient, only: [:show, :edit, :update, :destroy, :discharge]
     before_action :check_login
     def index
-        @active_patients = Patient.active.alphabetical.paginate(page: params[:page]).per_page(15)
-        @inactive_patients = Patient.inactive.alphabetical.paginate(page: params[:page]).per_page(15)
+        @active_patients = Patient.active.alphabetical.paginate(page: params[:page]).per_page(10)
+        @inactive_patients = Patient.inactive.alphabetical.paginate(page: params[:page]).per_page(10)
     end
 
     def show 
         #@recent_visits = @pet.visits.by_admission.last(10).to_a 
+        @all_bottles = Bottle.for_patient(@patient).paginate(page: params[:all_bottles_page]).per_page(5)
         @expired_bottles = Bottle.for_patient(@patient).expired.paginate(page: params[:expired_page]).per_page(5)
         @expiring_bottles_fridge = Bottle.for_patient(@patient).expiring_by_date(DateTime.now.next_day(1)).for_location("Fridge")
         @expiring_bottles_freezer = Bottle.for_patient(@patient).expiring_by_date(DateTime.now.next_day(7)).for_location("Freezer")

@@ -1,7 +1,8 @@
+<% if logged_in? %>
 <% if @active_bottles.empty? %>
   <h4>There are no bottles in the system at this time.</h4>
 <% else %>
-  <h4>Active Bottles</h4>
+  <h4>All Bottles</h4>
 <div class="row">
   <div class="col s9 center">
   <div class="card">
@@ -13,7 +14,9 @@
       <th>Patient</th>
       <th>Collected Date</th>
       <th>Expiration Date</th>
-      <th class="align_center">Options</th>
+      <% if can? :edit, Bottle or can? :destroy, Bottle %>
+        <th class="align_center">Options</th>
+      <% end %>
     </thead>
     <% for bottle in @active_bottles %>
       <tr>
@@ -21,28 +24,33 @@
         <td><%= "#{bottle.patient.proper_name}"%></td>
         <td><%= "#{bottle.collected_date.strftime("%Y/%m/%d %I:%M %p")}"%></td>
         <td><%= "#{bottle.expiration_date.strftime("%Y/%m/%d %I:%M %p")}"%></td>
-        <% if can? :edit, Bottle %>
+        <% if can? :edit, Bottle or can? :destroy, Bottle%>
         <td class="align_center">
-          <%= link_to edit_bottle_path(bottle) do %>
-              <i class="material-icons">edit</i>
+          <% if can? :edit, Bottle%>
+            <%= link_to edit_bottle_path(bottle) do %>
+                <i class="material-icons">edit</i>
+            <% end %>
+          &nbsp;&nbsp;&nbsp;&nbsp;
           <% end %>
-          &nbsp;&nbsp;&nbsp;&nbsp; 
-          <%= link_to(bottle_path(bottle), method: :delete, data: { confirm: 'Are you sure you wish to discharge this bottle without verification?' }) do %>
-              <i class="material-icons">delete</i>
+          <% if can? :destroy, Bottle%> 
+            <%= link_to(bottle_path(bottle), method: :delete, data: { confirm: 'Are you sure you wish to discharge this bottle without verification?' }) do %>
+                <i class="material-icons">delete</i>
+            <% end %>
           <% end %>
         </td>
-        
+        <% end %>
       </tr>
     <% end %>
   </table>
   <br />
   <%= will_paginate @active_bottles, previous_label: "Previous&nbsp;", next_label: "&nbsp;Next" %>
-<% end %>
-<p>&nbsp;</p>
+  <% end %>
+  <p>&nbsp;</p>
 
-    </div>
-</div>
+      </div>
+  </div>
 
 
  </div>
 </div>
+<% end %>
