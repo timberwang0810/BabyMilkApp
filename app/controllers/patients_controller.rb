@@ -2,8 +2,8 @@ class PatientsController < ApplicationController
     before_action :set_patient, only: [:show, :edit, :update, :destroy, :discharge]
     before_action :check_login
     def index
-        @active_patients = Patient.active.alphabetical.paginate(page: params[:page]).per_page(10)
-        @inactive_patients = Patient.inactive.alphabetical.paginate(page: params[:page]).per_page(10)
+        @active_patients = Patient.alphabetical.paginate(page: params[:page]).per_page(10)
+        # @inactive_patients = Patient.inactive.alphabetical.paginate(page: params[:page]).per_page(10)
     end
 
     def show 
@@ -37,7 +37,7 @@ class PatientsController < ApplicationController
     def update
         authorize! :update, @patient
         if @patient.update_attributes(patient_params)
-            flash[:notice] = "Updated all information on #{@patient.proper_name}"
+            flash[:notice] = "Updated all information on #{@patient.proper_name}."
             redirect_to @patient
         else
             render action: 'edit'

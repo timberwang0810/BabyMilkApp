@@ -2,7 +2,7 @@ class BottlesController < ApplicationController
     before_action :set_bottle, only: [:show, :edit, :update, :delete, :destroy, :reprint]
     before_action :check_login
     def index
-        @active_bottles = Bottle.active.by_patient.paginate(page: params[:page]).per_page(10)
+        @active_bottles = Bottle.by_patient.paginate(page: params[:page]).per_page(10)
     end
 
     def new
@@ -44,7 +44,7 @@ class BottlesController < ApplicationController
         if ActiveModel::Type::Boolean.new.cast(params[:other][:confirm])
             @bottle.storage_location = @bottle.storage_location.downcase == "fridge" ? "Freezer" : "Fridge"
             @bottle.save
-            flash[:notice] = "Updated storage location on bottle"
+            flash[:notice] = "Updated storage location on bottle."
             redirect_to patient_path(@bottle.patient), notice: flash[notice]
         else 
             redirect_to patient_path(@bottle.patient)
@@ -63,11 +63,11 @@ class BottlesController < ApplicationController
             File.delete(path) if File.exist?(path)
             @patient = @bottle.patient
             @bottle.destroy
-            flash[:notice] = "Removed bottle for #{@patient.proper_name} from the system"
+            flash[:notice] = "Removed bottle for #{@patient.proper_name} from the system."
             redirect_to patient_path(@patient), notice: flash[:notice]
         else 
-            flash[:notice] = "Deletion cancelled."
-            redirect_to patient_path(@bottle.patient), notice: flash[:notice]
+            flash[:error] = "Deletion cancelled."
+            redirect_to patient_path(@bottle.patient), error: flash[:error]
         end
         
     end
