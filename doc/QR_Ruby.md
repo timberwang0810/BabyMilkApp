@@ -9,7 +9,7 @@ The Zebra printer needs to connect to an outlet in addition to the computer via 
 
 **On Mac**: You can add the Zebra printer via "System Preferences" -> "Printers and Scanners" ->  "+ (add printer)". Select the Zebra printer and in the "Use" dropdown, select "Select Software" and type _Zebra_ into the Filter bar of the Printer Software pop-up and select the "ZPL" option from the list. You can then set any printer configurations at the link http://localhost:631/printers (such as label size and dpi (dots per inches)). For our configuration, we set the dpi to 300 and label size to be 3 x 2 inches. 
 
-**On Windows**
+**On Windows** A thorough guide can be found here: https://picqer.com/en/support/articles/installing-zebra-printer
 
 ## Working with QR code in Ruby
 
