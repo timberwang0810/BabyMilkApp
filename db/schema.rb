@@ -12,8 +12,11 @@
 
 ActiveRecord::Schema.define(version: 2022_05_03_201348) do
 
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
+
   create_table "bottles", force: :cascade do |t|
-    t.integer "patient_id"
+    t.bigint "patient_id"
     t.datetime "collected_date"
     t.string "storage_location"
     t.datetime "administration_date"
@@ -45,12 +48,10 @@ ActiveRecord::Schema.define(version: 2022_05_03_201348) do
     t.string "password_digest"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.string "reset_password_token"
-    t.datetime "reset_password_sent_at"
   end
 
   create_table "visits", force: :cascade do |t|
-    t.integer "patient_id"
+    t.bigint "patient_id"
     t.string "account_number"
     t.date "admission_date"
     t.date "discharge_date"
@@ -59,4 +60,6 @@ ActiveRecord::Schema.define(version: 2022_05_03_201348) do
     t.index ["patient_id"], name: "index_visits_on_patient_id"
   end
 
+  add_foreign_key "bottles", "patients"
+  add_foreign_key "visits", "patients"
 end
