@@ -5,7 +5,7 @@ class UsersController < ApplicationController
 
     def index
         # finding all the active users and paginating that list (will_paginate)
-        @users = User.all.paginate(page: params[:page]).per_page(15)
+        @users = User.all.paginate(page: params[:page]).per_page(10)
     end
 
     def new
@@ -21,8 +21,7 @@ class UsersController < ApplicationController
         @user.role = "nurse" if current_user.role?(:nurse)
         if  @user.save
             flash[:notice] = "Successfully added #{@user.proper_name} as a user."
-            #session[:user_id] = @user.id
-            redirect_to @users
+            redirect_to @users, notice: flash[:notice]
         else
             render action: 'new'
         end
@@ -31,7 +30,7 @@ class UsersController < ApplicationController
     def update
         if  @user.update_attributes(user_params)
             flash[:notice] = "Successfully updated #{@user.proper_name}."
-            redirect_to users_url
+            redirect_to users_url, notice: flash[:notice]
         else
             render action: 'edit'
         end

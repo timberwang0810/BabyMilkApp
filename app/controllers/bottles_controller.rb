@@ -28,16 +28,7 @@ class BottlesController < ApplicationController
             end
         end
         flash[:notice] = "Successfully created bottles for patient."
-        redirect_to patient_path(@bottle.patient) # go to show bottle page
-        # @bottle = Bottle.new(bottle_params)
-        # if @bottle.save
-        #     # if saved to database
-        #     flash[:notice] = "Successfully created bottle."
-        #     redirect_to bottle_path(@bottle) # go to show bottle page
-        # else
-        #     # return to the 'new' form
-        #     render action: 'new'
-        # end
+        redirect_to patient_path(@bottle.patient), notice: flash[:notice] # go to show bottle page
     end
 
     def edit
@@ -83,7 +74,8 @@ class BottlesController < ApplicationController
 
     def reprint
         @bottle.print_qr
-        redirect_to bottle_path(@bottle)
+        flash[:notice] = "Reprinted."
+        redirect_to bottle_path(@bottle), notice: flash[:notice]
     end
 
     

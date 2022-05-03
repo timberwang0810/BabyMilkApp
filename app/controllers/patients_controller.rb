@@ -7,7 +7,6 @@ class PatientsController < ApplicationController
     end
 
     def show 
-        #@recent_visits = @pet.visits.by_admission.last(10).to_a 
         @all_bottles = Bottle.for_patient(@patient).paginate(page: params[:all_bottles_page]).per_page(5)
         @expired_bottles = Bottle.for_patient(@patient).expired.paginate(page: params[:expired_page]).per_page(5)
         @expiring_bottles_fridge = Bottle.for_patient(@patient).expiring_by_date(DateTime.now.next_day(1)).for_location("Fridge")
@@ -24,7 +23,7 @@ class PatientsController < ApplicationController
         if @patient.save
             # if saved to database
             flash[:notice] = "Successfully created #{@patient.proper_name}."
-            redirect_to patient_path(@patient) # go to show patient page
+            redirect_to patient_path(@patient), notice: flash[:notice] # go to show patient page
         else
             # return to the 'new' form
             render action: 'new'
@@ -48,7 +47,7 @@ class PatientsController < ApplicationController
     def destroy
         authorize! :destroy, @patient
         @patient.destroy
-        flash[:notice] = "Removed #{@patient.proper_name} from the system"
+        flash[:notice] = "Removed #{@patient.proper_name} from the system."
         redirect_to patients_url, notice: flash[:notice]
 
     end
@@ -58,7 +57,7 @@ class PatientsController < ApplicationController
         @patient.admitted = false 
         @patient.save
         flash[:notice] = "Patient #{@patient.proper_name} discharged."
-        redirect_to patient_path(@patient) 
+        redirect_to patient_path(@patient), notice: flash[:notice]
     end 
 
     private

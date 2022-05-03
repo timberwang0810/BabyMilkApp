@@ -11,7 +11,7 @@ class ScanpatientController < ApplicationController
     if visit != nil && visit.is_active?
         redirect_to patient_path(visit.patient)
     else 
-        flash[:notice] = "Patient doesn't exist, or the patient has already been discharged"
+        flash[:notice] = "Patient doesn't exist, or the patient has already been discharged!"
         render action: 'scan', notice: flash[:notice]
     end
   end
