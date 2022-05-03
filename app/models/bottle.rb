@@ -2,9 +2,8 @@ require "openssl"
 require 'net/http'
 require 'time'
 
+# Milk bottle model
 class Bottle < ApplicationRecord
-  include AppHelpers::Activeable::InstanceMethods
-  extend AppHelpers::Activeable::ClassMethods
 
   @@cipher_key = ENV["CIPHER_KEY"]
   attr_accessor :qr_image
@@ -31,20 +30,25 @@ class Bottle < ApplicationRecord
   scope :expiring_by_date, -> (time) {where("expiration_date < ? AND expiration_date > ?", time, DateTime.now)}
 
   #callbacks
-  #before_save
   before_create :set_bottle_details
   before_update :edit_bottle_details
   after_save :generate_qr
-  #after_destroy :make_bottle_inactive
 
+  # Gets the image asset path to the QR code image corresponding to this bottle, which is slightly different than its actual local path.
+  #
+  # @return [String] the local path to the QR code image
   def get_qr_image
     "/assets/qr/#{encrypt(@@cipher_key, self.id.to_s)}.png"
   end
 
+  # Gets the local path to the QR code image corresponding to this bottle
+  #
+  # @return [String] the local path to the QR code image
   def get_qr_path
     "./app/assets/images/qr/#{encrypt(@@cipher_key, self.id.to_s)}.png"
   end
 
+  # Sends the QR code corresponding to this bottle to the connected Zebra printer to be printed.
   def print_qr
     label = create_label
     print_job = Zebra::PrintJob.new 'Zebra_Technologies_ZTC_GX420d'
@@ -52,11 +56,16 @@ class Bottle < ApplicationRecord
   end 
 
   class << self
+    # Gets a bottle's ID from its encrypted QR string
+    #
+    # @param enc [String] encrypted string
+    # @return [String] a bottle's ID
     def get_bottle_id(enc)
       decrypt(@@cipher_key, enc.to_s)
     end
     private 
 
+    # Decryption algorithm
     def decrypt(key, str)
         cipher = OpenSSL::Cipher.new('DES-EDE3-CBC').decrypt
         cipher.key = key
@@ -65,51 +74,48 @@ class Bottle < ApplicationRecord
         cipher.update(s) + cipher.final
     end
   end
-  #fix this
+
   protected
+
+  # Sets the bottle's expiration dates upon creation, based on storage method.
   def set_bottle_details
     if self.storage_location.downcase == 'fridge'
       self.expiration_date = self.collected_date.next_day(3)
-      # self.save
     elsif self.storage_location.downcase =='freezer'
       self.expiration_date = self.collected_date.next_year(1)
-      # self.save
     else
       self.errors.add(:bottle, "invalid storage location")
     end
   end
 
+  # Edits the bottle's expiration dates upon update, based on storage method.
   def edit_bottle_details
     if self.storage_location.downcase == 'fridge'
       self.expiration_date = DateTime.now.next_day(1)
-      # self.save
     elsif self.storage_location.downcase =='freezer'
       self.expiration_date = self.collected_date.next_year(1)
-      # self.save
     else
       self.errors.add(:bottle, "invalid storage location")
     end
   end
 
-  def make_bottle_inactive
-    self.administration_date = Date.today
-    self.make_inactive
-  end
-
   private
+
+    # Encryption algorithm
     def encrypt(key, str)
         cipher = OpenSSL::Cipher.new('DES-EDE3-CBC').encrypt
         cipher.key = key
         s = cipher.update(str) + cipher.final
         s.unpack('H*')[0].upcase
     end
-
+    # Retrieves and prints the ZPL string from the generated label
     def print_zpl_str(name, label)
         zpl = ''
         label.dump_contents zpl
         puts "\n#{name}:\n#{zpl}\n\n"
         zpl
     end
+    # Generates the QR label for the bottle
     def create_label
       encrypted = encrypt(@@cipher_key, self.id.to_s)
         label = Zebra::Zpl::Label.new(
@@ -161,6 +167,8 @@ class Bottle < ApplicationRecord
         label << id_text
         return label
     end 
+
+    # Generates, saves, and prints the QR label for the bottle.
     def generate_qr
         label = create_label
         rendered_zpl = Labelary::Label.render zpl: print_zpl_str('raw_zpl', label)
@@ -170,6 +178,4 @@ class Bottle < ApplicationRecord
         print_job = Zebra::PrintJob.new 'Zebra_Technologies_ZTC_GX420d'
         print_job.print label, 'localhost'
     end
-
-
 end

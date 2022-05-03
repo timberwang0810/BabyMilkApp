@@ -21,6 +21,9 @@ Rails.application.routes.draw do
   get 'scanbottle/delete', to: 'scanbottle#delete', as: :scan_bottle_delete
   delete 'scanbottle/destroy', to: 'scanbottle#destroy', as: :scan_bottle_destroy
 
+  get 'scanpatient/scan', to: 'scanpatient#scan', as: :scan_patient_scan
+  patch 'scanpatient/find', to: 'scanpatient#find', as: :scan_patient_find
+
   resources :sessions
   resources :users
   get 'user/edit' => 'users#edit', :as => :edit_current_user
