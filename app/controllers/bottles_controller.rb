@@ -2,7 +2,7 @@ class BottlesController < ApplicationController
     before_action :set_bottle, only: [:show, :edit, :update, :delete, :destroy, :reprint]
     before_action :check_login
     def index
-        @active_bottles = Bottle.active.by_patient.paginate(page: params[:page]).per_page(10)
+        @active_bottles = Bottle.by_patient.paginate(page: params[:page]).per_page(10)
     end
 
     def new
@@ -28,16 +28,7 @@ class BottlesController < ApplicationController
             end
         end
         flash[:notice] = "Successfully created bottles for patient."
-        redirect_to patient_path(@bottle.patient) # go to show bottle page
-        # @bottle = Bottle.new(bottle_params)
-        # if @bottle.save
-        #     # if saved to database
-        #     flash[:notice] = "Successfully created bottle."
-        #     redirect_to bottle_path(@bottle) # go to show bottle page
-        # else
-        #     # return to the 'new' form
-        #     render action: 'new'
-        # end
+        redirect_to patient_path(@bottle.patient), notice: flash[:notice] # go to show bottle page
     end
 
     def edit
@@ -53,7 +44,7 @@ class BottlesController < ApplicationController
         if ActiveModel::Type::Boolean.new.cast(params[:other][:confirm])
             @bottle.storage_location = @bottle.storage_location.downcase == "fridge" ? "Freezer" : "Fridge"
             @bottle.save
-            flash[:notice] = "Updated storage location on bottle"
+            flash[:notice] = "Updated storage location on bottle."
             redirect_to patient_path(@bottle.patient), notice: flash[notice]
         else 
             redirect_to patient_path(@bottle.patient)
@@ -72,18 +63,19 @@ class BottlesController < ApplicationController
             File.delete(path) if File.exist?(path)
             @patient = @bottle.patient
             @bottle.destroy
-            flash[:notice] = "Removed bottle for #{@patient.proper_name} from the system"
+            flash[:notice] = "Removed bottle for #{@patient.proper_name} from the system."
             redirect_to patient_path(@patient), notice: flash[:notice]
         else 
-            flash[:notice] = "Deletion cancelled."
-            redirect_to patient_path(@bottle.patient), notice: flash[:notice]
+            flash[:error] = "Deletion cancelled."
+            redirect_to patient_path(@bottle.patient), error: flash[:error]
         end
         
     end
 
     def reprint
         @bottle.print_qr
-        redirect_to bottle_path(@bottle)
+        flash[:notice] = "Reprinted."
+        redirect_to bottle_path(@bottle), notice: flash[:notice]
     end
 
     
