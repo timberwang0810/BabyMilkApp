@@ -47,6 +47,7 @@ class PatientsController < ApplicationController
     def destroy
         authorize! :destroy, @patient
         @patient.bottles.each { |b| b.destroy}
+        @patient.visits.each { |v| v.destroy}
         @patient.destroy
         flash[:notice] = "Removed #{@patient.proper_name} from the system."
         redirect_to patients_url, notice: flash[:notice]

@@ -14,7 +14,6 @@ class Visit < ApplicationRecord
   validate :is_admitted, on: :create
 
   before_save :admit_patient
-  before_destroy :cannot_destroy_object
 
   # Checks if this visit is still in progress (i.e. the patient has not been discharged yet). 
   #

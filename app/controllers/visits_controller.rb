@@ -20,8 +20,9 @@ class VisitsController < ApplicationController
     end
 
     def destroy
-        flash[:error] = "Visits cannot be destroyed in the system."
-        redirect_to @visit, error: flash[:error]
+        authorize! :destroy, @visit
+        @visit.destroy
+        redirect_to patients_url
     end
 
     private
