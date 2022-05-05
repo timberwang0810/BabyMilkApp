@@ -57,7 +57,8 @@ class BottlesController < ApplicationController
 
     def destroy
         authorize! :destroy, @bottle
-        if ActiveModel::Type::Boolean.new.cast(params[:other][:confirm])
+        confirmed = params[:other] == nil ? true : ActiveModel::Type::Boolean.new.cast(params[:other][:confirm])
+        if confirmed
             path = @bottle.get_qr_path
             puts path
             File.delete(path) if File.exist?(path)
