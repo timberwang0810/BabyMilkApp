@@ -170,6 +170,7 @@ class Bottle < ApplicationRecord
 
     # Generates, saves, and prints the QR label for the bottle.
     def generate_qr
+        encrypted = encrypt(@@cipher_key, self.id.to_s)
         label = create_label
         rendered_zpl = Labelary::Label.render zpl: print_zpl_str('raw_zpl', label)
         File.open "./app/assets/images/qr/#{encrypted}.png", 'wb' do |f| # change file name for PNG images
