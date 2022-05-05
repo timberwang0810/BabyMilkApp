@@ -177,7 +177,7 @@ class Bottle < ApplicationRecord
         #     f.write rendered_zpl
         # end
         print_job = Zebra::PrintJob.new 'Zebra_Technologies_ZTC_GX420t'
-        print_job.print label, '192.168.1.63'
+        #print_job.print label, '192.168.1.63'
         print_job.print label, 'localhost'
     end
 end
