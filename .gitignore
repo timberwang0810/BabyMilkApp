@@ -35,3 +35,6 @@
 
 # Ignore locally generated QR codes
 /app/assets/images/qr/*
+
+# Ignore .DS_Store
+**/.DS_Store
