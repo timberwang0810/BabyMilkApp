@@ -58,7 +58,12 @@ class Bottle < ApplicationRecord
     else
       tempfile = label.persist
     end
-    system("COPY /B #{tempfile.path} LPT1")
+    result = `COPY /B #{tempfile.path} LPT1`
+    if result == ""
+      puts "NO"
+    else 
+      puts result
+    end
   end 
 
   class << self
