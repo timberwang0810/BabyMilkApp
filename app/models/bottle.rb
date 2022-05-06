@@ -186,6 +186,6 @@ class Bottle < ApplicationRecord
         else
           tempfile = label.persist
         end
-        system("COPY /B #{tempfile.path} \\DESKTOP-Q1OSGL6\ZDesigner")
+        system("COPY /B #{tempfile.path} LPT1")
     end
 end
