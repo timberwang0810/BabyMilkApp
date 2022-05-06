@@ -176,8 +176,16 @@ class Bottle < ApplicationRecord
         File.open "./app/assets/images/qr/#{encrypted}.png", 'wb' do |f| # change file name for PNG images
             f.write rendered_zpl
         end
-        print_job = Zebra::PrintJob.new 'Zebra_Technologies_ZTC_GX420d'
+        #print_job = Zebra::PrintJob.new 'Zebra_Technologies_ZTC_GX420d'
         #print_job.print label, '192.168.1.63'
-        print_job.print label, 'localhost'
+        #print_job.print label, 'localhost'
+        if label.is_a? String
+          tempfile = Tempfile.new "zebra_label"
+          tempfile.write label
+          tempfile.close
+        else
+          tempfile = label.persist
+        end
+        system("COPY /B #{tempfile.path} \\DESKTOP-Q1OSGL6\ZDesigner")
     end
 end
