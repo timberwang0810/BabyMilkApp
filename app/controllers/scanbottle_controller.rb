@@ -32,6 +32,7 @@ class ScanbottleController < ApplicationController
     authorize! :destroy, Bottle
     bottle_id_enc = params[:other][:bottle_id]
     if bottle_id_enc.length != 16 or !(is_integer?(Bottle.get_bottle_id(bottle_id_enc)))
+        puts bottle_id_enc.length
         flash[:error] = "Please scan a valid bottle QR code."
         render action: 'edit', error: flash[:error]
         return

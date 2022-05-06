@@ -21,7 +21,7 @@ class UsersController < ApplicationController
         @user.role = "nurse" if current_user.role?(:nurse)
         if  @user.save
             flash[:notice] = "Successfully added #{@user.proper_name} as a user."
-            redirect_to @users, notice: flash[:notice]
+            redirect_to users_url, notice: flash[:notice]
         else
             render action: 'new'
         end
