@@ -51,8 +51,14 @@ class Bottle < ApplicationRecord
   # Sends the QR code corresponding to this bottle to the connected Zebra printer to be printed.
   def print_qr
     label = create_label
-    print_job = Zebra::PrintJob.new 'Zebra_Technologies_ZTC_GX420d'
-    print_job.print label, 'localhost'
+    if label.is_a? String
+      tempfile = Tempfile.new "zebra_label"
+      tempfile.write label
+      tempfile.close
+    else
+      tempfile = label.persist
+    end
+    system("COPY /B #{tempfile.path} LPT1")
   end 
 
   class << self
@@ -172,10 +178,10 @@ class Bottle < ApplicationRecord
     def generate_qr
         encrypted = encrypt(@@cipher_key, self.id.to_s)
         label = create_label
-        rendered_zpl = Labelary::Label.render zpl: print_zpl_str('raw_zpl', label)
-        File.open "./app/assets/images/qr/#{encrypted}.png", 'wb' do |f| # change file name for PNG images
-            f.write rendered_zpl
-        end
+        #rendered_zpl = Labelary::Label.render zpl: print_zpl_str('raw_zpl', label)
+        #File.open "./app/assets/images/qr/#{encrypted}.png", 'wb' do |f| # change file name for PNG images
+        #    f.write rendered_zpl
+        #end
         #print_job = Zebra::PrintJob.new 'Zebra_Technologies_ZTC_GX420d'
         #print_job.print label, '192.168.1.63'
         #print_job.print label, 'localhost'
