@@ -55,7 +55,9 @@ class PatientsController < ApplicationController
     end
 
     def discharge 
-        @patient.get_current_visit.discharge_date = Date.current 
+        @visit = @patient.get_current_visit
+        @visit.discharge_date = Date.current 
+        @visit.save
         @patient.admitted = false 
         @patient.save
         flash[:notice] = "Patient #{@patient.proper_name} discharged."

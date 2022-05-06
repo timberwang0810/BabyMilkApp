@@ -36,12 +36,12 @@ class ScanbottleController < ApplicationController
         render action: 'edit', error: flash[:error]
         return
     end
-    bottle = Bottle.find(Bottle.get_bottle_id(bottle_id_enc))
-    if bottle != nil 
+    if Bottle.exists?(Bottle.get_bottle_id(bottle_id))
+      bottle = Bottle.find(Bottle.get_bottle_id(bottle_id_enc))
       redirect_to delete_bottle_path(bottle)
     else 
-        flash[:error] = "Bottle doesn't exist, or has already been thrown out!"
-        render action: 'delete', error: flash[:error]
+      flash[:error] = "Bottle doesn't exist, or has already been thrown out!"
+      render action: 'delete', error: flash[:error]
     end
   end
 

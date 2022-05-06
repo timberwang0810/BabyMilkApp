@@ -26,7 +26,7 @@ class Visit < ApplicationRecord
 
   # Admits the patient
   def admit_patient
-    self.patient.admitted = true unless !self.is_active?
+    self.patient.admitted = true 
     self.patient.save
   end
 
