@@ -7,8 +7,7 @@
             <b>Storage Method:&nbsp;&nbsp;</b><%= @bottle.storage_location%><br>
             <b>Active?&nbsp;&nbsp;</b>
             <%= @bottle.active ? "Yes" : "No" %> <br />
-            <b>QR:</b><br>
-            <%= image_tag (@bottle.get_qr_image), :size => "300x200", class: "img-responsive"%>
+            <%#= image_tag (@bottle.get_qr_image), :size => "300x200", class: "img-responsive"%>
             <%= button_to reprint_bottle_path(@bottle), method: :post, data: {confirm: "Reprint label for bottle with ID #{@bottle.id}?"},class: 'waves-effect waves-light btn' do %>
                             &nbsp;<%= "Reprint label" %>
                         <% end %>
